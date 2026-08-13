@@ -28,13 +28,13 @@ export default function Home() {
       {/* Content */}
       <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-[1440px] flex-col justify-between px-6 py-10 sm:px-12 lg:px-16 lg:py-14">
         {/* Top: logo + subtitle, centered */}
-        <header className="flex flex-col items-center text-center">
+        <header className="relative flex flex-col items-center text-center">
           <img
             src="/figma/pick-logo.svg"
             alt="pick by Milana"
-            className="h-24 w-auto sm:h-28 lg:h-36"
+            className="h-32 w-auto rounded-2xl sm:h-36 lg:h-44"
           />
-          <p className="mt-1 font-serif text-sm font-medium uppercase tracking-wide text-cream sm:text-base lg:text-lg">
+          <p className="absolute inset-x-0 bottom-3 z-10 px-4 font-serif text-sm font-medium uppercase tracking-wide text-cream sm:text-base lg:text-2xl">
             современный сервис преподавателей английского языка
           </p>
         </header>
