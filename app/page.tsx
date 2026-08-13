@@ -34,7 +34,7 @@ export default function Home() {
             alt="pick by Milana"
             className="-ml-2 h-40 w-auto sm:h-52 lg:h-64"
           />
-          <p className="-mt-6 font-serif text-base font-medium uppercase tracking-wide text-cream sm:-mt-8 sm:text-lg lg:-mt-10 lg:text-2xl">
+          <p className="-mt-6 font-serif text-lg font-medium tracking-wide text-cream sm:-mt-8 sm:text-xl lg:-mt-12 lg:text-3xl">
             современный сервис преподавателей английского языка
           </p>
         </header>
