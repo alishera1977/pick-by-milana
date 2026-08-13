@@ -41,9 +41,9 @@ export default function Home() {
 
         {/* Bottom: main copy on the left + buttons below */}
         <div className="flex flex-col gap-8">
-          <p className="max-w-[408px] whitespace-pre-line font-sans text-base font-medium uppercase leading-[1.65] tracking-[0.33px] text-cream sm:text-lg lg:text-[22px] lg:leading-[36px]">
+          <p className="max-w-[520px] whitespace-pre-line font-sans text-base font-medium uppercase leading-[1.65] tracking-[0.33px] text-cream sm:text-lg lg:text-[22px] lg:leading-[36px]">
             {
-              '    Подберем преподавателя\n    под твой уровень, цель,\n    характер и бюджет.\n    От молодых преподавателей\n    до экспертов с          международным\nопытом.'
+              '    Подберем преподавателя\n    под твой уровень, цель,\n    характер и бюджет.\n    От молодых преподавателей\n    до экспертов с международным\nопытом.'
             }
           </p>
 
