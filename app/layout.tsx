@@ -1,10 +1,35 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
+import { Manrope, Cormorant_Garamond, Days_One, Yellowtail } from 'next/font/google'
 import './globals.css'
 
+const manrope = Manrope({
+  subsets: ['latin', 'cyrillic'],
+  variable: '--font-manrope',
+})
+
+const cormorant = Cormorant_Garamond({
+  subsets: ['latin', 'cyrillic'],
+  weight: ['500', '600', '700'],
+  variable: '--font-cormorant',
+})
+
+const daysOne = Days_One({
+  subsets: ['latin', 'cyrillic'],
+  weight: '400',
+  variable: '--font-days-one',
+})
+
+const yellowtail = Yellowtail({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-yellowtail',
+})
+
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
+  title: 'pick by Milana — сервис преподавателей английского языка',
+  description:
+    'Современный сервис преподавателей английского языка. Подберём преподавателя под твой уровень, цель, характер и бюджет.',
   generator: 'v0.app',
   icons: {
     icon: [
@@ -26,11 +51,8 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  colorScheme: 'light dark',
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'white' },
-    { media: '(prefers-color-scheme: dark)', color: 'black' },
-  ],
+  colorScheme: 'dark',
+  themeColor: '#202020',
 }
 
 export default function RootLayout({
@@ -39,7 +61,10 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html
+      lang="ru"
+      className={`${manrope.variable} ${cormorant.variable} ${daysOne.variable} ${yellowtail.variable} bg-background`}
+    >
       <body className="antialiased">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
