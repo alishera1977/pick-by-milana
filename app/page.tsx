@@ -35,7 +35,7 @@ export default function Home() {
             className="ml-4 h-40 w-auto sm:ml-8 lg:ml-12 lg:h-64"
           />
           <p className="-ml-6 -mt-6 whitespace-nowrap font-serif text-lg font-medium tracking-wide text-cream sm:-ml-10 sm:-mt-8 sm:text-xl lg:-ml-14 lg:-mt-12 lg:text-xl">
-            {'               современный       сервис преподавателей английского языка'}
+            {'                современный     сервис преподавателей английского языка'}
           </p>
         </header>
 
