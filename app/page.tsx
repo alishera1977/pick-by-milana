@@ -3,66 +3,64 @@ import Image from 'next/image'
 export default function Home() {
   return (
     <main className="relative min-h-screen w-full overflow-hidden bg-background">
-      {/* Background image */}
+      {/* Background image — person stays on the right */}
       <Image
         src="/figma/hero.jpg"
         alt="Милана — преподаватель английского языка"
         fill
         priority
         sizes="100vw"
-        className="object-cover object-[70%_center]"
+        className="object-cover object-[75%_center]"
       />
 
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black/40" aria-hidden="true" />
+      {/* Dark overlay — 37% */}
+      <div className="absolute inset-0 bg-black/[0.37]" aria-hidden="true" />
       {/* Left gradient overlay */}
       <div
-        className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/35 to-transparent"
+        className="absolute inset-0"
         aria-hidden="true"
+        style={{
+          background:
+            'linear-gradient(90deg, #000000b8 0%, #00000059 40%, #00000014 65%, #00000000 80%)',
+        }}
       />
 
       {/* Content */}
-      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-[1440px] flex-col justify-between px-6 py-10 sm:px-10 lg:px-16 lg:py-14">
-        {/* Top: brand + subtitle */}
-        <header className="flex flex-col">
-          <div className="flex items-end justify-center gap-2 sm:justify-start">
-            <h1 className="font-script text-7xl leading-none text-cream sm:text-8xl lg:text-[10rem]">
-              pick
-            </h1>
-            <span className="mb-3 font-serif text-2xl font-medium text-cream sm:mb-4 sm:text-3xl lg:mb-6 lg:text-4xl">
-              by Milana
-            </span>
-          </div>
-
-          <p className="mt-2 flex flex-wrap items-center justify-center gap-x-3 text-balance font-serif text-lg font-bold uppercase tracking-wide text-cream drop-shadow-md sm:justify-start sm:text-2xl lg:text-[2rem]">
-            <span>современный</span>
-            <span aria-hidden="true" className="text-cream/70">
-              /
-            </span>
-            <span>сервис преподавателей английского языка</span>
+      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-[1440px] flex-col justify-between px-6 py-10 sm:px-12 lg:px-16 lg:py-14">
+        {/* Top: logo + subtitle, centered */}
+        <header className="flex flex-col items-center text-center">
+          <img
+            src="/figma/pick-logo.svg"
+            alt="pick by Milana"
+            className="h-24 w-auto sm:h-28 lg:h-36"
+          />
+          <p className="mt-1 font-serif text-sm font-medium uppercase tracking-wide text-cream sm:text-base lg:text-lg">
+            современный сервис преподавателей английского языка
           </p>
         </header>
 
-        {/* Middle: main copy */}
-        <p className="max-w-lg text-pretty font-sans text-sm font-medium uppercase leading-relaxed tracking-wide text-cream sm:text-base lg:text-lg">
-          Подберём преподавателя под твой уровень, цель, характер и бюджет. От
-          молодых преподавателей до экспертов с международным опытом.
-        </p>
+        {/* Bottom: main copy on the left + buttons below */}
+        <div className="flex flex-col gap-8">
+          <p className="max-w-[408px] whitespace-pre-line font-sans text-base font-medium uppercase leading-[1.65] tracking-[0.33px] text-cream sm:text-lg lg:text-[22px] lg:leading-[36px]">
+            {
+              'Подберем преподавателя\nпод твой уровень, цель,\nхарактер и бюджет.\nОт молодых преподавателей\nдо экспертов с международным\nопытом.'
+            }
+          </p>
 
-        {/* Bottom: CTAs */}
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-          <button
-            type="button"
-            className="rounded-full border-[1.5px] border-cream px-8 py-4 font-display text-lg text-cream transition-colors hover:bg-cream/10 lg:text-xl"
-          >
-            Занятие с Миланой
-          </button>
-          <button
-            type="button"
-            className="rounded-full bg-cream px-10 py-4 font-display text-lg text-background transition-opacity hover:opacity-90 lg:text-xl"
-          >
-            Подобрать преподавателя
-          </button>
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+            <button
+              type="button"
+              className="rounded-full border border-cream px-6 py-3 font-display text-sm text-cream transition-colors hover:bg-cream/10"
+            >
+              Занятие с Миланой
+            </button>
+            <button
+              type="button"
+              className="rounded-full bg-cream px-7 py-3 font-display text-sm text-background transition-opacity hover:opacity-90"
+            >
+              Подобрать преподавателя
+            </button>
+          </div>
         </div>
       </div>
     </main>
