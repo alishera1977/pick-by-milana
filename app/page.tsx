@@ -43,7 +43,7 @@ export default function Home() {
         <div className="flex flex-col gap-8">
           <p className="max-w-[408px] whitespace-pre-line font-sans text-base font-medium uppercase leading-[1.65] tracking-[0.33px] text-cream sm:text-lg lg:text-[22px] lg:leading-[36px]">
             {
-              'Подберем преподавателя\nпод твой уровень, цель,\nхарактер и бюджет.\nОт молодых преподавателей\nдо экспертов с международным\nопытом.'
+              '    Подберем преподавателя\n    под твой уровень, цель,\n    характер и бюджет.\n    От молодых преподавателей\n    до экспертов с          международным\nопытом.'
             }
           </p>
 
