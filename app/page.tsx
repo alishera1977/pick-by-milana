@@ -32,7 +32,7 @@ export default function Home() {
           <img
             src="/figma/pick-logo.svg"
             alt="pick by Milana"
-            className="-ml-2 h-40 w-auto sm:h-52 lg:h-64"
+            className="ml-8 h-40 w-auto sm:ml-16 lg:ml-24 lg:h-64"
           />
           <p className="-ml-6 -mt-6 whitespace-nowrap font-serif text-lg font-medium tracking-wide text-cream sm:-ml-10 sm:-mt-8 sm:text-xl lg:-ml-14 lg:-mt-12 lg:text-xl">
             {'      современный      сервис преподавателей английского языка'}
