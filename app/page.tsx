@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function Home() {
   return (
@@ -54,12 +55,12 @@ export default function Home() {
             >
               Занятие с Миланой
             </button>
-            <button
-              type="button"
+            <Link
+              href="/goal"
               className="rounded-full bg-cream px-7 py-3 font-display text-sm text-background transition-opacity hover:opacity-90"
             >
               Подобрать преподавателя
-            </button>
+            </Link>
           </div>
         </div>
       </div>
