@@ -27,7 +27,7 @@ const goals = [
 export default function GoalPage() {
   return (
     <main
-      className="min-h-screen w-full px-6 py-16 text-cream sm:px-12 lg:px-[8vw] lg:py-20"
+      className="min-h-screen w-full px-6 py-10 text-cream sm:px-12 lg:px-[8vw] lg:py-12"
       style={{
         backgroundImage:
           'repeating-linear-gradient(90deg, rgba(0,0,0,0.08) 0 2px, transparent 2px 140px), linear-gradient(160deg, #3a2717 0%, #241811 55%, #170f0a 100%)',
@@ -63,12 +63,12 @@ export default function GoalPage() {
         </div>
 
         {/* Goal cards */}
-        <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2">
+        <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
           {goals.map((goal) => (
             <button
               key={goal.title}
               type="button"
-              className="group relative rounded-[22px] border border-cream/15 bg-cream/[0.06] p-7 text-left transition-all duration-200 hover:-translate-y-0.5 hover:border-cream/30 hover:bg-cream/[0.12]"
+              className="group relative rounded-[22px] border border-cream/15 bg-cream/[0.06] p-6 text-left transition-all duration-200 hover:-translate-y-0.5 hover:border-cream/30 hover:bg-cream/[0.12]"
             >
               <span
                 aria-hidden="true"
@@ -90,7 +90,7 @@ export default function GoalPage() {
         </div>
 
         {/* Footer */}
-        <div className="mt-8 flex flex-col items-start justify-between gap-5 border-t border-cream/15 pt-8 sm:flex-row sm:items-center">
+        <div className="mt-6 flex flex-col items-start justify-between gap-5 border-t border-cream/15 pt-6 sm:flex-row sm:items-center">
           <p className="max-w-[42ch] font-condensed text-[15px] text-cream/70">
             У тебя другой запрос? Напиши Милане — посмотрим, есть ли в команде преподаватель, который с ним работает.
           </p>
