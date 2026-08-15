@@ -142,7 +142,7 @@ export function GoalSection() {
             href="https://t.me/"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex shrink-0 items-center gap-1 rounded-full bg-cream px-3 py-1.5 font-condensed text-[10px] font-bold uppercase tracking-[0.08em] text-[#241811] transition-all duration-200 hover:-translate-y-0.5 sm:gap-2 sm:px-6 sm:py-3 sm:text-sm sm:tracking-[0.1em]"
+            className="inline-flex shrink-0 items-center gap-1 rounded-full bg-cream px-2.5 py-1 font-condensed text-[8px] font-bold uppercase tracking-[0.06em] text-[#241811] transition-all duration-200 hover:-translate-y-0.5 sm:gap-2 sm:px-6 sm:py-3 sm:text-sm sm:tracking-[0.1em]"
           >
             Написать Милане <span aria-hidden="true">&rarr;</span>
           </a>
