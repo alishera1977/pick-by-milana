@@ -63,8 +63,8 @@ export function GoalSection() {
           </div>
           <div className="col-span-2">
             <PhotoCard
-              src="/figma/photo-speaking.png"
-              alt="Девушка уверенно общается с другом в кафе"
+              src="/figma/photo-scratch.jpg"
+              alt="Двое молодых людей вместе смотрят в ноутбук"
             />
           </div>
 
