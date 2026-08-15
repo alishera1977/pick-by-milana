@@ -1,13 +1,14 @@
 type GoalCard = {
   title: string
   text: string
+  className?: string
 }
 
-function ContentCard({ title, text }: GoalCard) {
+function ContentCard({ title, text, className = '' }: GoalCard) {
   return (
     <button
       type="button"
-      className="group flex h-full flex-col overflow-hidden rounded-[20px] border p-[18px] text-left transition-colors duration-200 hover:bg-[#463420]"
+      className={`group flex h-full flex-col overflow-hidden rounded-[20px] border p-[18px] text-left transition-colors duration-200 hover:bg-[#463420] ${className}`}
       style={{
         background: '#3A281A',
         borderColor: 'rgba(255,248,185,0.28)',
@@ -40,9 +41,9 @@ function ContentCard({ title, text }: GoalCard) {
   )
 }
 
-function PhotoCard({ src, alt }: { src: string; alt: string }) {
+function PhotoCard({ src, alt, className = '' }: { src: string; alt: string; className?: string }) {
   return (
-    <div className="h-full w-full overflow-hidden rounded-[20px]">
+    <div className={`h-full w-full overflow-hidden rounded-[20px] ${className}`}>
       <img src={src || '/placeholder.svg'} alt={alt} className="h-full w-full object-cover" />
     </div>
   )
@@ -69,47 +70,63 @@ export function GoalSection() {
           Не подгоняем тебя под программу — подбираем человека под твой запрос.
         </p>
 
-        {/* Dense 2-column editorial grid, ~230px rows, alternating card/photo */}
-        <div className="mt-8 grid grid-cols-2 gap-2 auto-rows-[minmax(230px,auto)] sm:mt-12 sm:gap-3 sm:auto-rows-[minmax(320px,auto)]">
-          {/* Row 1 — card left, photo right */}
-          <ContentCard
-            title="Я начинаю с нуля"
-            text="Хочу наконец разобраться в базе и постепенно начать говорить."
-          />
-          <PhotoCard
-            src="/figma/photo-scratch.jpg"
-            alt="Двое молодых людей вместе смотрят в ноутбук"
-          />
+        {/* Editorial rows — 68/32 proportion, alternating card/photo, 8px gap */}
+        <div className="mt-8 flex flex-col gap-2 sm:mt-12">
+          {/* Row 1 — card 68% left, photo 32% right */}
+          <div className="flex min-h-[230px] gap-2 sm:min-h-[320px]">
+            <ContentCard
+              className="basis-[68%]"
+              title="Я начинаю с нуля"
+              text="Хочу наконец разобраться в базе и постепенно начать говорить."
+            />
+            <PhotoCard
+              className="basis-[32%]"
+              src="/figma/photo-scratch.jpg"
+              alt="Двое молодых людей вместе смотрят в ноутбук"
+            />
+          </div>
 
-          {/* Row 2 — photo left, card right */}
-          <PhotoCard
-            src="/figma/photo-barrier.jpg"
-            alt="Девушка на набережной канала в солнечный день"
-          />
-          <ContentCard
-            title="Я всё понимаю, но не могу сказать"
-            text="Уберём языковой барьер и сделаем английский частью обычной жизни."
-          />
+          {/* Row 2 — photo 32% left, card 68% right */}
+          <div className="flex min-h-[230px] gap-2 sm:min-h-[320px]">
+            <PhotoCard
+              className="basis-[32%]"
+              src="/figma/photo-barrier.jpg"
+              alt="Девушка на набережной канала в солнечный день"
+            />
+            <ContentCard
+              className="basis-[68%]"
+              title="Я всё понимаю, но не могу сказать"
+              text="Уберём языковой барьер и сделаем английский частью обычной жизни."
+            />
+          </div>
 
-          {/* Row 3 — card left, photo right */}
-          <ContentCard
-            title="Мне нужен английский для путешествий"
-            text="Аэропорт, отели, новые знакомства — без страха заговорить."
-          />
-          <PhotoCard
-            src="/figma/london-photo.jpg"
-            alt="Студентка на фоне Биг-Бена в Лондоне"
-          />
+          {/* Row 3 — card 68% left, photo 32% right */}
+          <div className="flex min-h-[230px] gap-2 sm:min-h-[320px]">
+            <ContentCard
+              className="basis-[68%]"
+              title="Мне нужен английский для путешествий"
+              text="Аэропорт, отели, новые знакомства — без страха заговорить."
+            />
+            <PhotoCard
+              className="basis-[32%]"
+              src="/figma/london-photo.jpg"
+              alt="Студентка на фоне Биг-Бена в Лондоне"
+            />
+          </div>
 
-          {/* Row 4 — photo left, card right */}
-          <PhotoCard
-            src="/figma/photo-levelup.png"
-            alt="Молодой человек гуляет по европейскому городу"
-          />
-          <ContentCard
-            title="Хочу поднять свой уровень"
-            text="База уже есть — теперь хочется двигаться дальше и звучать увереннее."
-          />
+          {/* Row 4 — photo 32% left, card 68% right */}
+          <div className="flex min-h-[230px] gap-2 sm:min-h-[320px]">
+            <PhotoCard
+              className="basis-[32%]"
+              src="/figma/photo-levelup.png"
+              alt="Молодой человек гуляет по европейскому городу"
+            />
+            <ContentCard
+              className="basis-[68%]"
+              title="Хочу поднять свой уровень"
+              text="База уже есть — теперь хочется двигаться дальше и звучать увереннее."
+            />
+          </div>
         </div>
 
         {/* Footer CTA */}
