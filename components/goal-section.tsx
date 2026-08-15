@@ -71,8 +71,8 @@ export function GoalSection() {
           {/* Row 2 — photo left, text right */}
           <div className="col-span-2">
             <PhotoCard
-              src="/figma/lesson-photo.png"
-              alt="Двое студентов занимаются английским за ноутбуком"
+              src="/figma/photo-barrier.jpg"
+              alt="Девушка на набережной канала в солнечный день"
             />
           </div>
           <div className="col-span-3">
