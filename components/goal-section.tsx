@@ -134,15 +134,15 @@ export function GoalSection() {
         </div>
 
         {/* Footer CTA */}
-        <div className="mt-1.5 flex flex-col items-start justify-between gap-3 rounded-[16px] border border-dashed border-cream/25 px-4 py-4 sm:mt-3 sm:gap-4 sm:rounded-[20px] sm:flex-row sm:items-center sm:px-8 sm:py-5">
-          <p className="font-sans text-[13px] leading-[1.3] text-cream/80 sm:text-base sm:leading-normal">
+        <div className="mt-1.5 flex flex-col items-start justify-between gap-1.5 rounded-lg border border-dashed border-cream/25 px-2.5 py-2 sm:mt-3 sm:gap-4 sm:rounded-[20px] sm:border-solid sm:px-8 sm:py-5 sm:flex-row sm:items-center">
+          <p className="font-sans text-[10px] leading-[1.25] text-cream/80 sm:text-base sm:leading-normal">
             Не нашла свой запрос? Напиши Милане — подберём преподавателя лично.
           </p>
           <a
             href="https://t.me/"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex shrink-0 items-center gap-2 rounded-full bg-cream px-5 py-2.5 font-condensed text-[13px] font-bold uppercase tracking-[0.1em] text-[#241811] transition-all duration-200 hover:-translate-y-0.5 sm:px-6 sm:py-3 sm:text-sm"
+            className="inline-flex shrink-0 items-center gap-1 rounded-full bg-cream px-3 py-1.5 font-condensed text-[10px] font-bold uppercase tracking-[0.08em] text-[#241811] transition-all duration-200 hover:-translate-y-0.5 sm:gap-2 sm:px-6 sm:py-3 sm:text-sm sm:tracking-[0.1em]"
           >
             Написать Милане <span aria-hidden="true">&rarr;</span>
           </a>
