@@ -8,18 +8,18 @@ function ContentCard({ number, title, text }: GoalCard) {
   return (
     <button
       type="button"
-      className="group flex h-full flex-col overflow-hidden rounded-[20px] bg-[#3a2c1a] p-4 text-left transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#463623] sm:rounded-[26px] sm:p-8"
+      className="group flex h-full flex-col overflow-hidden rounded-[22px] bg-[#3a2c1a] p-5 text-left transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#463623] sm:rounded-[26px] sm:p-8"
     >
-      <span className="font-condensed text-[10px] font-semibold uppercase tracking-[0.2em] text-cream/50 sm:text-xs">
+      <span className="font-condensed text-[11px] font-semibold uppercase tracking-[0.2em] text-cream/50 sm:text-xs">
         {number}
       </span>
-      <h3 className="mt-2 font-sans text-lg font-semibold leading-[1.15] text-balance sm:mt-4 sm:text-[28px]">
+      <h3 className="mt-3 font-sans text-xl font-semibold leading-[1.15] text-balance sm:mt-4 sm:text-[28px]">
         {title}
       </h3>
-      <p className="mt-1.5 max-w-[42ch] font-sans text-[12px] leading-[1.4] text-cream/60 sm:mt-3 sm:text-[15px] sm:leading-[1.5]">
+      <p className="mt-2 max-w-[42ch] font-sans text-[13px] leading-[1.45] text-cream/60 sm:mt-3 sm:text-[15px] sm:leading-[1.5]">
         {text}
       </p>
-      <span className="mt-auto pt-3 inline-flex items-center gap-2 font-condensed text-[11px] font-bold uppercase tracking-[0.15em] text-cream transition-transform duration-200 group-hover:translate-x-1 sm:pt-6 sm:text-sm">
+      <span className="mt-auto pt-4 inline-flex items-center gap-2 font-condensed text-[12px] font-bold uppercase tracking-[0.15em] text-cream transition-transform duration-200 group-hover:translate-x-1 sm:pt-6 sm:text-sm">
         Подобрать <span aria-hidden="true">&rarr;</span>
       </span>
     </button>
@@ -56,7 +56,7 @@ export function GoalSection() {
         </p>
 
         {/* Alternating card + photo rows — asymmetric 3:2 on all screens */}
-        <div className="mt-12 grid grid-cols-5 auto-rows-[260px] gap-4 sm:auto-rows-[320px] sm:gap-5">
+        <div className="mt-12 grid grid-cols-5 auto-rows-[340px] gap-4 sm:auto-rows-[320px] sm:gap-5">
           {/* Row 1 — text left, photo right */}
           <div className="col-span-3">
             <ContentCard
