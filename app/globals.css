@@ -41,6 +41,7 @@
   --font-serif: var(--font-cormorant);
   --font-display: var(--font-days-one);
   --font-script: var(--font-yellowtail);
+  --font-brand: var(--font-pacifico);
   --font-condensed: var(--font-oswald);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);

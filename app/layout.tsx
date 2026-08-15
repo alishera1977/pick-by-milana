@@ -1,7 +1,13 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import { Manrope, Cormorant_Garamond, Days_One, Yellowtail, Oswald } from 'next/font/google'
+import { Manrope, Cormorant_Garamond, Days_One, Yellowtail, Oswald, Pacifico } from 'next/font/google'
 import './globals.css'
+
+const pacifico = Pacifico({
+  subsets: ['latin', 'cyrillic'],
+  weight: '400',
+  variable: '--font-pacifico',
+})
 
 const oswald = Oswald({
   subsets: ['latin', 'cyrillic'],
@@ -69,7 +75,7 @@ export default function RootLayout({
   return (
     <html
       lang="ru"
-      className={`${manrope.variable} ${cormorant.variable} ${daysOne.variable} ${yellowtail.variable} ${oswald.variable} bg-background`}
+      className={`${manrope.variable} ${cormorant.variable} ${daysOne.variable} ${yellowtail.variable} ${oswald.variable} ${pacifico.variable} bg-background`}
     >
       <body className="antialiased">
         {children}

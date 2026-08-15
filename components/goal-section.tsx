@@ -65,7 +65,7 @@ export function GoalSection() {
     >
       <div className="mx-auto w-full max-w-[820px]">
         {/* Heading */}
-        <h2 className="font-condensed text-[34px] font-bold uppercase leading-[0.92] text-balance sm:text-6xl sm:leading-[0.95] lg:text-[68px]">
+        <h2 className="font-[family-name:var(--font-brand)] text-[30px] font-normal normal-case leading-[1.15] text-balance sm:text-[52px] sm:leading-[1.1] lg:text-[60px]">
           Найдём преподавателя
           <br />
           под твою цель
