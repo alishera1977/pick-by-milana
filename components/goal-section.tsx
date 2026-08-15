@@ -8,7 +8,7 @@ function ContentCard({ number, title, text }: GoalCard) {
   return (
     <button
       type="button"
-      className="group flex h-full flex-col rounded-[26px] bg-[#3a2c1a] p-7 text-left transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#463623] sm:p-8"
+      className="group flex h-full min-h-[300px] flex-col rounded-[26px] bg-[#3a2c1a] p-7 text-left transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#463623] sm:p-8"
     >
       <span className="font-condensed text-xs font-semibold uppercase tracking-[0.2em] text-cream/50">
         {number}
@@ -28,7 +28,7 @@ function ContentCard({ number, title, text }: GoalCard) {
 
 function PhotoCard({ src, alt }: { src: string; alt: string }) {
   return (
-    <div className="h-full min-h-[240px] overflow-hidden rounded-[26px] bg-[#3a2c1a]">
+    <div className="h-full min-h-[300px] overflow-hidden rounded-[26px] bg-[#3a2c1a]">
       <img src={src} alt={alt} className="h-full w-full object-cover" />
     </div>
   )
@@ -56,66 +56,50 @@ export function GoalSection() {
         </p>
 
         {/* Alternating card + photo rows */}
-        <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-5">
+        <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2">
           {/* Row 1 — text left, photo right */}
-          <div className="sm:col-span-3">
-            <ContentCard
-              number="01"
-              title="Я начинаю с нуля"
-              text="Хочу наконец разобраться в базе и постепенно начать говорить."
-            />
-          </div>
-          <div className="sm:col-span-2">
-            <PhotoCard
-              src="/figma/photo-speaking.png"
-              alt="Девушка уверенно общается с другом в кафе"
-            />
-          </div>
+          <ContentCard
+            number="01"
+            title="Я начинаю с нуля"
+            text="Хочу наконец разобраться в базе и постепенно начать говорить."
+          />
+          <PhotoCard
+            src="/figma/photo-speaking.png"
+            alt="Девушка уверенно общается с другом в кафе"
+          />
 
           {/* Row 2 — photo left, text right */}
-          <div className="sm:col-span-2">
-            <PhotoCard
-              src="/figma/lesson-photo.png"
-              alt="Двое студентов занимаются английским за ноутбуком"
-            />
-          </div>
-          <div className="sm:col-span-3">
-            <ContentCard
-              number="02"
-              title="Я всё понимаю, но не могу сказать"
-              text="Уберём языковой барьер и сделаем английский частью обычной жизни."
-            />
-          </div>
+          <PhotoCard
+            src="/figma/lesson-photo.png"
+            alt="Двое студентов занимаются английским за ноутбуком"
+          />
+          <ContentCard
+            number="02"
+            title="Я всё понимаю, но не могу сказать"
+            text="Уберём языковой барьер и сделаем английский частью обычной жизни."
+          />
 
           {/* Row 3 — text left, photo right */}
-          <div className="sm:col-span-3">
-            <ContentCard
-              number="03"
-              title="Мне нужен английский для путешествий"
-              text="Аэропорт, отели, новые знакомства — без страха заговорить."
-            />
-          </div>
-          <div className="sm:col-span-2">
-            <PhotoCard
-              src="/figma/london-photo.jpg"
-              alt="Студентка на фоне Биг-Бена в Лондоне"
-            />
-          </div>
+          <ContentCard
+            number="03"
+            title="Мне нужен английский для путешествий"
+            text="Аэропорт, отели, новые знакомства — без страха заговорить."
+          />
+          <PhotoCard
+            src="/figma/london-photo.jpg"
+            alt="Студентка на фоне Биг-Бена в Лондоне"
+          />
 
           {/* Row 4 — photo left, text right */}
-          <div className="sm:col-span-2">
-            <PhotoCard
-              src="/figma/photo-levelup.png"
-              alt="Молодой человек гуляет по европейскому городу"
-            />
-          </div>
-          <div className="sm:col-span-3">
-            <ContentCard
-              number="04"
-              title="Хочу поднять свой уровень"
-              text="База уже есть — теперь хочется двигаться дальше и звучать увереннее."
-            />
-          </div>
+          <PhotoCard
+            src="/figma/photo-levelup.png"
+            alt="Молодой человек гуляет по европейскому городу"
+          />
+          <ContentCard
+            number="04"
+            title="Хочу поднять свой уровень"
+            text="База уже есть — теперь хочется двигаться дальше и звучать увереннее."
+          />
         </div>
 
         {/* Footer CTA */}
