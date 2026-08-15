@@ -8,7 +8,7 @@ function ContentCard({ number, title, text }: GoalCard) {
   return (
     <button
       type="button"
-      className="group flex h-full min-h-[300px] flex-col rounded-[26px] bg-[#3a2c1a] p-7 text-left transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#463623] sm:p-8"
+      className="group flex h-full min-h-[300px] flex-col overflow-hidden rounded-[26px] bg-[#3a2c1a] p-7 text-left transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#463623] sm:min-h-0 sm:p-8"
     >
       <span className="font-condensed text-xs font-semibold uppercase tracking-[0.2em] text-cream/50">
         {number}
@@ -28,7 +28,7 @@ function ContentCard({ number, title, text }: GoalCard) {
 
 function PhotoCard({ src, alt }: { src: string; alt: string }) {
   return (
-    <div className="h-full min-h-[300px] overflow-hidden rounded-[26px] bg-[#3a2c1a]">
+    <div className="h-full min-h-[300px] overflow-hidden rounded-[26px] bg-[#3a2c1a] sm:min-h-0">
       <img src={src} alt={alt} className="h-full w-full object-cover" />
     </div>
   )
@@ -56,7 +56,7 @@ export function GoalSection() {
         </p>
 
         {/* Alternating card + photo rows */}
-        <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2">
+        <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:auto-rows-[360px]">
           {/* Row 1 — text left, photo right */}
           <ContentCard
             number="01"
