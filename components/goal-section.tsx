@@ -8,7 +8,7 @@ function ContentCard({ title, text, className = '' }: GoalCard) {
   return (
     <button
       type="button"
-      className={`group flex h-full flex-col overflow-hidden rounded-[20px] border p-[18px] text-left transition-colors duration-200 hover:bg-[#463420] ${className}`}
+      className={`group flex h-full min-w-0 flex-col overflow-hidden rounded-[20px] border p-[18px] text-left transition-colors duration-200 hover:bg-[#463420] ${className}`}
       style={{
         background: '#3A281A',
         borderColor: 'rgba(255,248,185,0.28)',
@@ -21,13 +21,13 @@ function ContentCard({ title, text, className = '' }: GoalCard) {
       />
       <h3
         className="mt-3 font-serif text-balance"
-        style={{ fontSize: 32, lineHeight: 0.95, fontWeight: 500, color: '#FFF8B9' }}
+        style={{ fontSize: 28, lineHeight: 0.98, fontWeight: 500, color: '#FFF8B9' }}
       >
         {title}
       </h3>
       <p
         className="mt-2 font-sans"
-        style={{ fontSize: 17, lineHeight: 1.2, color: 'rgba(255,248,185,0.6)' }}
+        style={{ fontSize: 16, lineHeight: 1.25, color: 'rgba(255,248,185,0.6)' }}
       >
         {text}
       </p>
@@ -43,8 +43,12 @@ function ContentCard({ title, text, className = '' }: GoalCard) {
 
 function PhotoCard({ src, alt, className = '' }: { src: string; alt: string; className?: string }) {
   return (
-    <div className={`h-full w-full overflow-hidden rounded-[20px] ${className}`}>
-      <img src={src || '/placeholder.svg'} alt={alt} className="h-full w-full object-cover" />
+    <div className={`h-full min-w-0 overflow-hidden rounded-[20px] ${className}`}>
+      <img
+        src={src || '/placeholder.svg'}
+        alt={alt}
+        className="block h-full w-full object-cover"
+      />
     </div>
   )
 }
@@ -73,7 +77,7 @@ export function GoalSection() {
         {/* Editorial rows — 68/32 proportion, alternating card/photo, 8px gap */}
         <div className="mt-8 flex flex-col gap-2 sm:mt-12">
           {/* Row 1 — card 68% left, photo 32% right */}
-          <div className="flex min-h-[230px] gap-2 sm:min-h-[320px]">
+          <div className="flex h-[300px] gap-2">
             <ContentCard
               className="basis-[68%]"
               title="Я начинаю с нуля"
@@ -87,7 +91,7 @@ export function GoalSection() {
           </div>
 
           {/* Row 2 — photo 32% left, card 68% right */}
-          <div className="flex min-h-[230px] gap-2 sm:min-h-[320px]">
+          <div className="flex h-[300px] gap-2">
             <PhotoCard
               className="basis-[32%]"
               src="/figma/photo-barrier.jpg"
@@ -101,7 +105,7 @@ export function GoalSection() {
           </div>
 
           {/* Row 3 — card 68% left, photo 32% right */}
-          <div className="flex min-h-[230px] gap-2 sm:min-h-[320px]">
+          <div className="flex h-[300px] gap-2">
             <ContentCard
               className="basis-[68%]"
               title="Мне нужен английский для путешествий"
@@ -115,7 +119,7 @@ export function GoalSection() {
           </div>
 
           {/* Row 4 — photo 32% left, card 68% right */}
-          <div className="flex min-h-[230px] gap-2 sm:min-h-[320px]">
+          <div className="flex h-[300px] gap-2">
             <PhotoCard
               className="basis-[32%]"
               src="/figma/photo-levelup.png"
