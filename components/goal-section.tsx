@@ -8,7 +8,7 @@ function ContentCard({ title, text, className = '' }: GoalCard) {
   return (
     <button
       type="button"
-      className={`group flex h-full min-w-0 flex-col overflow-hidden rounded-[20px] border p-[18px] text-left transition-colors duration-200 hover:bg-[#463420] ${className}`}
+      className={`group flex h-full min-w-0 flex-col overflow-hidden rounded-[18px] border p-4 text-left transition-colors duration-200 hover:bg-[#463420] sm:rounded-[20px] sm:p-[18px] ${className}`}
       style={{
         background: '#3A281A',
         borderColor: 'rgba(255,248,185,0.28)',
@@ -20,20 +20,20 @@ function ContentCard({ title, text, className = '' }: GoalCard) {
         aria-hidden="true"
       />
       <h3
-        className="mt-3 font-serif text-balance"
-        style={{ fontSize: 28, lineHeight: 0.98, fontWeight: 500, color: '#FFF8B9' }}
+        className="mt-2.5 font-serif text-balance text-[28px] leading-none font-medium sm:mt-3 sm:leading-[0.98]"
+        style={{ color: '#FFF8B9' }}
       >
         {title}
       </h3>
       <p
-        className="mt-2 font-sans"
-        style={{ fontSize: 16, lineHeight: 1.25, color: 'rgba(255,248,185,0.6)' }}
+        className="mt-2.5 font-sans text-[15px] leading-[1.2] sm:mt-2 sm:text-base sm:leading-[1.25]"
+        style={{ color: 'rgba(255,248,185,0.6)' }}
       >
         {text}
       </p>
       <span
-        className="mt-auto pt-3 inline-flex items-center font-serif italic uppercase transition-transform duration-200 group-hover:translate-x-1"
-        style={{ fontSize: 20, color: '#FFF8B9' }}
+        className="mt-auto mb-0.5 inline-flex items-center font-serif text-[18px] italic uppercase transition-transform duration-200 group-hover:translate-x-1 sm:mb-0 sm:pt-3 sm:text-xl"
+        style={{ color: '#FFF8B9' }}
       >
         Подробнее
       </span>
@@ -43,11 +43,11 @@ function ContentCard({ title, text, className = '' }: GoalCard) {
 
 function PhotoCard({ src, alt, className = '' }: { src: string; alt: string; className?: string }) {
   return (
-    <div className={`h-full min-w-0 overflow-hidden rounded-[20px] ${className}`}>
+    <div className={`h-full min-w-0 overflow-hidden rounded-[18px] sm:rounded-[20px] ${className}`}>
       <img
         src={src || '/placeholder.svg'}
         alt={alt}
-        className="block h-full w-full object-cover"
+        className="block h-full w-full object-cover object-center"
       />
     </div>
   )
@@ -57,7 +57,7 @@ export function GoalSection() {
   return (
     <section
       id="goal"
-      className="w-full p-3 text-cream sm:p-12 lg:py-24"
+      className="w-full px-2.5 py-4 text-cream sm:p-12 lg:py-24"
       style={{
         background:
           'linear-gradient(180deg, #241811 0%, #2a1f13 40%, #241811 100%)',
@@ -65,68 +65,68 @@ export function GoalSection() {
     >
       <div className="mx-auto w-full max-w-[820px]">
         {/* Heading */}
-        <h2 className="font-condensed text-4xl font-bold uppercase leading-[0.95] text-balance sm:text-6xl lg:text-[68px]">
+        <h2 className="font-condensed text-[44px] font-bold uppercase leading-[0.92] text-balance sm:text-6xl sm:leading-[0.95] lg:text-[68px]">
           Найдём преподавателя
           <br />
           под твою цель
         </h2>
-        <p className="mt-4 font-sans text-base text-cream/60 sm:mt-6 sm:text-lg">
+        <p className="mt-[18px] font-sans text-[17px] leading-[1.25] text-cream/60 sm:mt-6 sm:text-lg sm:leading-normal">
           Не подгоняем тебя под программу — подбираем человека под твой запрос.
         </p>
 
-        {/* Editorial rows — 68/32 proportion, alternating card/photo, 8px gap */}
-        <div className="mt-8 flex flex-col gap-2 sm:mt-12">
-          {/* Row 1 — card 68% left, photo 32% right */}
-          <div className="flex h-[300px] gap-2">
+        {/* Editorial rows — 66/34 mobile, 68/32 desktop, alternating card/photo, 8px gap */}
+        <div className="mt-5 flex flex-col gap-2 sm:mt-12">
+          {/* Row 1 — card left, photo right */}
+          <div className="flex h-[230px] gap-2 sm:h-[300px]">
             <ContentCard
-              className="basis-[68%]"
+              className="basis-[66%] sm:basis-[68%]"
               title="Я начинаю с нуля"
               text="Хочу наконец разобраться в базе и постепенно начать говорить."
             />
             <PhotoCard
-              className="basis-[32%]"
+              className="basis-[34%] sm:basis-[32%]"
               src="/figma/photo-scratch.jpg"
               alt="Двое молодых людей вместе смотрят в ноутбук"
             />
           </div>
 
-          {/* Row 2 — photo 32% left, card 68% right */}
-          <div className="flex h-[300px] gap-2">
+          {/* Row 2 — photo left, card right */}
+          <div className="flex h-[230px] gap-2 sm:h-[300px]">
             <PhotoCard
-              className="basis-[32%]"
+              className="basis-[34%] sm:basis-[32%]"
               src="/figma/photo-barrier.jpg"
               alt="Девушка на набережной канала в солнечный день"
             />
             <ContentCard
-              className="basis-[68%]"
+              className="basis-[66%] sm:basis-[68%]"
               title="Я всё понимаю, но не могу сказать"
               text="Уберём языковой барьер и сделаем английский частью обычной жизни."
             />
           </div>
 
-          {/* Row 3 — card 68% left, photo 32% right */}
-          <div className="flex h-[300px] gap-2">
+          {/* Row 3 — card left, photo right */}
+          <div className="flex h-[230px] gap-2 sm:h-[300px]">
             <ContentCard
-              className="basis-[68%]"
+              className="basis-[66%] sm:basis-[68%]"
               title="Мне нужен английский для путешествий"
               text="Аэропорт, отели, новые знакомства — без страха заговорить."
             />
             <PhotoCard
-              className="basis-[32%]"
+              className="basis-[34%] sm:basis-[32%]"
               src="/figma/london-photo.jpg"
               alt="Студентка на фоне Биг-Бена в Лондоне"
             />
           </div>
 
-          {/* Row 4 — photo 32% left, card 68% right */}
-          <div className="flex h-[300px] gap-2">
+          {/* Row 4 — photo left, card right */}
+          <div className="flex h-[230px] gap-2 sm:h-[300px]">
             <PhotoCard
-              className="basis-[32%]"
+              className="basis-[34%] sm:basis-[32%]"
               src="/figma/photo-levelup.png"
               alt="Молодой человек гуляет по европейскому городу"
             />
             <ContentCard
-              className="basis-[68%]"
+              className="basis-[66%] sm:basis-[68%]"
               title="Хочу поднять свой уровень"
               text="База уже есть — теперь хочется двигаться дальше и звучать увереннее."
             />
