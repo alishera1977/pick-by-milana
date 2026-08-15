@@ -51,6 +51,14 @@ function AccentCard({ text, arrow }: { text: string; arrow?: boolean }) {
   )
 }
 
+function PhotoCard({ src, alt }: { src: string; alt: string }) {
+  return (
+    <div className="h-full min-h-[220px] overflow-hidden rounded-[26px] bg-[#3a2c1a]">
+      <img src={src} alt={alt} className="h-full w-full object-cover" />
+    </div>
+  )
+}
+
 export function GoalSection() {
   return (
     <section
@@ -83,7 +91,10 @@ export function GoalSection() {
             />
           </div>
           <div className="sm:col-span-2">
-            <AccentCard text={'Your\nEnglish\nEra'} />
+            <PhotoCard
+              src="/figma/london-photo.jpg"
+              alt="Студентка на фоне Биг-Бена в Лондоне"
+            />
           </div>
 
           {/* Row 2 */}
