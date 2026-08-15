@@ -1,26 +1,23 @@
 type GoalCard = {
-  number: string
   title: string
   text: string
 }
 
-function ContentCard({ number, title, text }: GoalCard) {
+function ContentCard({ title, text }: GoalCard) {
   return (
     <button
       type="button"
-      className="group flex h-full flex-col overflow-hidden rounded-[22px] bg-[#3a2c1a] p-5 text-left transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#463623] sm:rounded-[26px] sm:p-8"
+      className="group flex h-full flex-col overflow-hidden rounded-[18px] border border-cream/12 bg-[#3a2c1a] p-4 text-left transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#463623] sm:rounded-[24px] sm:p-7"
     >
-      <span className="font-condensed text-[11px] font-semibold uppercase tracking-[0.2em] text-cream/50 sm:text-xs">
-        {number}
-      </span>
-      <h3 className="mt-3 font-sans text-xl font-semibold leading-[1.15] text-balance sm:mt-4 sm:text-[28px]">
+      <span className="block h-1.5 w-1.5 rounded-full bg-cream sm:h-2 sm:w-2" aria-hidden="true" />
+      <h3 className="mt-2.5 font-serif text-[22px] font-semibold leading-[1.05] text-balance sm:mt-4 sm:text-[34px]">
         {title}
       </h3>
-      <p className="mt-2 max-w-[42ch] font-sans text-[13px] leading-[1.45] text-cream/60 sm:mt-3 sm:text-[15px] sm:leading-[1.5]">
+      <p className="mt-2 max-w-[38ch] font-sans text-[12px] leading-[1.4] text-cream/55 sm:mt-3 sm:text-base sm:leading-[1.5]">
         {text}
       </p>
-      <span className="mt-auto pt-4 inline-flex items-center gap-2 font-condensed text-[12px] font-bold uppercase tracking-[0.15em] text-cream transition-transform duration-200 group-hover:translate-x-1 sm:pt-6 sm:text-sm">
-        Подобрать <span aria-hidden="true">&rarr;</span>
+      <span className="mt-auto pt-3 inline-flex items-center font-serif text-[13px] font-medium italic uppercase tracking-[0.06em] text-cream transition-transform duration-200 group-hover:translate-x-1 sm:pt-5 sm:text-lg">
+        Подробнее
       </span>
     </button>
   )
@@ -28,7 +25,7 @@ function ContentCard({ number, title, text }: GoalCard) {
 
 function PhotoCard({ src, alt }: { src: string; alt: string }) {
   return (
-    <div className="h-full overflow-hidden rounded-[20px] bg-[#3a2c1a] sm:rounded-[26px]">
+    <div className="h-full overflow-hidden rounded-[18px] bg-[#3a2c1a] sm:rounded-[24px]">
       <img src={src} alt={alt} className="h-full w-full object-cover" />
     </div>
   )
@@ -56,11 +53,10 @@ export function GoalSection() {
         </p>
 
         {/* Alternating card + photo rows — asymmetric 3:2 on all screens */}
-        <div className="mt-12 grid grid-cols-5 auto-rows-[340px] gap-4 sm:auto-rows-[320px] sm:gap-5">
+        <div className="mt-12 grid grid-cols-5 gap-3 sm:gap-5">
           {/* Row 1 — text left, photo right */}
           <div className="col-span-3">
             <ContentCard
-              number="01"
               title="Я начинаю с нуля"
               text="Хочу наконец разобраться в базе и постепенно начать говорить."
             />
@@ -81,7 +77,6 @@ export function GoalSection() {
           </div>
           <div className="col-span-3">
             <ContentCard
-              number="02"
               title="Я всё понимаю, но не могу сказать"
               text="Уберём языковой барьер и сделаем английский частью обычной жизни."
             />
@@ -90,7 +85,6 @@ export function GoalSection() {
           {/* Row 3 — text left, photo right */}
           <div className="col-span-3">
             <ContentCard
-              number="03"
               title="Мне нужен английский для путешествий"
               text="Аэропорт, отели, новые знакомства — без страха заговорить."
             />
@@ -111,7 +105,6 @@ export function GoalSection() {
           </div>
           <div className="col-span-3">
             <ContentCard
-              number="04"
               title="Хочу поднять свой уровень"
               text="База уже есть — теперь хочется двигаться дальше и звучать увереннее."
             />
