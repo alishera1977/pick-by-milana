@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:beget": "next build && node scripts/prepare-beget-deploy.mjs",
     "start": "next start",
     "lint": "eslint ."
   },

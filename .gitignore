@@ -18,6 +18,10 @@ yarn-error.log*
 
 # env files
 .env*
+send-anketa.config.php
+
+# beget deploy output
+/beget-deploy/
 
 # vercel
 .vercel

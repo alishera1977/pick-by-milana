@@ -1,4 +1,3 @@
-import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Manrope, Cormorant_Garamond, Days_One, Yellowtail, Oswald, Pacifico, Instrument_Serif, Prata, Roboto_Flex } from 'next/font/google'
 import localFont from 'next/font/local'
@@ -114,7 +113,6 @@ export default function RootLayout({
       <body className="antialiased">
         {children}
         <SiteFooter />
-        {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
   )

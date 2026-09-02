@@ -1,0 +1,26 @@
+DirectoryIndex index.html
+
+# Protect Telegram credentials from direct HTTP access
+<Files "send-anketa.config.php">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</Files>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Serve existing files and directories as-is
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Optional: add trailing slash for directory-style routes
+  RewriteCond %{REQUEST_URI} !/$
+  RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI}/index.html -f
+  RewriteRule ^(.*)$ $1/ [R=301,L]
+</IfModule>

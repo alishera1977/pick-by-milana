@@ -46,7 +46,13 @@ function ConsentCheckboxes({
         />
         <span>
           Я даю согласие с условиями{' '}
-          <span className="underline underline-offset-2">Оферты</span>
+          <Link
+            href="/offer/"
+            className="underline underline-offset-2 hover:text-white"
+            onClick={(e) => e.stopPropagation()}
+          >
+            Оферты
+          </Link>
         </span>
       </label>
 
@@ -62,9 +68,13 @@ function ConsentCheckboxes({
           Я даю{' '}
           <span className="underline underline-offset-2">согласие</span> на
           обработку персональных данных в соответствии с{' '}
-          <span className="underline underline-offset-2">
+          <Link
+            href="/privacy/"
+            className="underline underline-offset-2 hover:text-white"
+            onClick={(e) => e.stopPropagation()}
+          >
             Политикой в отношении обработки персональных данных
-          </span>
+          </Link>
         </span>
       </label>
 
@@ -131,7 +141,7 @@ export function AnketaForm({ variant = 'milana' }: { variant?: 'milana' | 'teach
     setError('')
 
     try {
-      const response = await fetch('/api/anketa', {
+      const response = await fetch('/send-anketa.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -145,10 +155,13 @@ export function AnketaForm({ variant = 'milana' }: { variant?: 'milana' | 'teach
         }),
       })
 
-      const data = (await response.json().catch(() => ({}))) as { error?: string }
+      const data = (await response.json().catch(() => ({}))) as {
+        success?: boolean
+        error?: string
+      }
 
-      if (!response.ok) {
-        throw new Error(data.error || 'send_failed')
+      if (!response.ok || !data.success) {
+        throw new Error(data.error || 'Не удалось отправить заявку. Попробуйте ещё раз.')
       }
 
       setSent(true)
