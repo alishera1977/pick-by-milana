@@ -1,12 +1,15 @@
 import Image from 'next/image'
 import { GoalSection } from '@/components/goal-section'
+import { TeamSection } from '@/components/team-section'
+import { ChooseTeacherSection } from '@/components/choose-teacher-section'
+import { FounderSection } from '@/components/founder-section'
+import { ReviewsSection } from '@/components/reviews-section'
 
 export default function Home() {
   return (
-    <main className="w-full bg-background">
-      {/* Hero — first screen */}
-      <section className="relative min-h-screen w-full overflow-hidden bg-background">
-        {/* Background image — person stays on the right */}
+    <main className="w-full overflow-x-hidden bg-background">
+      {/* Hero — full-bleed image, constrained content */}
+      <section className="relative min-h-[100svh] w-full overflow-hidden bg-background lg:min-h-[92svh]">
         <Image
           src="/figma/hero.jpg"
           alt="Милана — преподаватель английского языка"
@@ -16,9 +19,7 @@ export default function Home() {
           className="object-cover object-[75%_center]"
         />
 
-        {/* Dark overlay — 37% */}
         <div className="absolute inset-0 bg-black/[0.37]" aria-hidden="true" />
-        {/* Left gradient overlay */}
         <div
           className="absolute inset-0"
           aria-hidden="true"
@@ -28,38 +29,51 @@ export default function Home() {
           }}
         />
 
-        {/* Content */}
-        <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-[1440px] flex-col justify-between px-6 py-10 sm:px-12 lg:px-16 lg:py-14">
-          {/* Top: large left-positioned logo with subtitle crossing beneath it */}
-          <header className="relative flex flex-col items-start text-left">
+        <div className="relative z-10 mx-auto flex min-h-[100svh] w-full max-w-[1200px] flex-col justify-between overflow-x-hidden px-5 pt-8 pb-24 sm:px-10 sm:py-10 lg:min-h-[92svh] lg:overflow-visible lg:px-10 lg:pt-11 lg:pb-20">
+          <header className="relative w-full max-w-[520px]">
             <img
               src="/figma/pick-logo.svg"
               alt="pick by Milana"
-              className="ml-4 h-40 w-auto sm:ml-8 lg:ml-12 lg:h-64"
+              className="relative z-10 ml-14 h-32 w-auto sm:ml-14 sm:h-40 lg:ml-20 lg:h-48 lg:object-contain"
             />
-            <p className="-ml-6 -mt-6 whitespace-nowrap font-serif text-lg font-medium tracking-wide text-cream sm:-ml-10 sm:-mt-8 sm:text-xl lg:-ml-14 lg:-mt-12 lg:text-xl">
-              {'\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0современный\u00A0\u00A0\u00A0\u00A0\u00A0сервис преподавателей английского языка'}
+            {/* LOCKED: tagline position approved — do not move (see .cursor/rules/hero-tagline-lock.mdc) */}
+            <p
+              className="pointer-events-none absolute z-[1] whitespace-nowrap font-serif font-medium tracking-wide text-cream
+                left-4 top-[6.35rem] text-[15px]
+                sm:left-6 sm:top-[7.65rem] sm:text-[15px]
+                lg:left-14 lg:top-[8.9rem] lg:text-lg"
+            >
+              <span>современный</span>
+              <span
+                className="inline-block w-[1.2rem] sm:w-[1.45rem] lg:w-[1.7rem]"
+                aria-hidden="true"
+              />
+              <span>сервис преподавателей английского языка</span>
             </p>
           </header>
 
-          {/* Bottom: main copy on the left + buttons below */}
-          <div className="flex flex-col gap-8">
-            <p className="ml-[27px] max-w-[520px] whitespace-pre-line font-sans text-base font-medium uppercase leading-[1.65] tracking-[0.33px] text-cream sm:text-lg lg:text-[22px] lg:leading-[36px]">
+          <div className="flex flex-col gap-[30px] sm:gap-5 lg:gap-9 lg:pl-16">
+            <p className="max-w-[520px] whitespace-pre-line font-sans text-[13px] font-medium uppercase leading-[1.55] tracking-[0.33px] text-cream sm:hidden">
+              {
+                'Подберем преподавателя\nпод твой уровень, цель,\nхарактер и бюджет.\nОт молодых преподавателей\nдо экспертов с\nмеждународным опытом.'
+              }
+            </p>
+            <p className="hidden max-w-[520px] whitespace-pre-line font-sans font-medium uppercase leading-[1.55] tracking-[0.33px] text-cream sm:block sm:text-lg lg:max-w-[540px] lg:text-[20px] lg:leading-[1.55]">
               {
                 'Подберем преподавателя\nпод твой уровень, цель,\nхарактер и бюджет.\nОт молодых преподавателей\nдо экспертов с международным\nопытом.'
               }
             </p>
 
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-              <button
-                type="button"
-                className="rounded-full border border-cream px-6 py-3 font-display text-sm text-cream transition-colors hover:bg-cream/10"
+            <div className="mx-auto flex w-[86%] flex-col gap-3 sm:mx-0 sm:w-auto sm:flex-row sm:items-center sm:gap-2.5">
+              <a
+                href="/anketa"
+                className="w-full rounded-full border border-cream px-4 py-1 text-center font-display text-xs text-cream transition-colors hover:bg-cream/10 sm:w-auto sm:py-1.5"
               >
                 Занятие с Миланой
-              </button>
+              </a>
               <a
-                href="#goal"
-                className="rounded-full bg-cream px-7 py-3 font-display text-sm text-background transition-opacity hover:opacity-90"
+                href="#team"
+                className="w-full rounded-full bg-cream px-4 py-1 text-center font-display text-xs text-background transition-opacity hover:opacity-90 sm:w-auto sm:py-1.5"
               >
                 Подобрать преподавателя
               </a>
@@ -68,8 +82,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Goal selection — scrolls in below the hero */}
       <GoalSection />
+      <TeamSection />
+      <ChooseTeacherSection />
+      <FounderSection />
+      <ReviewsSection />
     </main>
   )
 }

@@ -1,7 +1,40 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import { Manrope, Cormorant_Garamond, Days_One, Yellowtail, Oswald, Pacifico } from 'next/font/google'
+import { Manrope, Cormorant_Garamond, Days_One, Yellowtail, Oswald, Pacifico, Instrument_Serif, Prata, Roboto_Flex } from 'next/font/google'
+import localFont from 'next/font/local'
+import { SiteFooter } from '@/components/site-footer'
 import './globals.css'
+
+const neueMontreal = localFont({
+  src: [
+    {
+      path: '../public/fonts/pp-neue-montreal-bold.woff',
+      weight: '700',
+      style: 'normal',
+    },
+  ],
+  variable: '--font-neue-montreal',
+  display: 'swap',
+})
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ['latin', 'latin-ext'],
+  weight: '400',
+  style: ['normal', 'italic'],
+  variable: '--font-instrument',
+})
+
+const prata = Prata({
+  subsets: ['latin', 'cyrillic'],
+  weight: '400',
+  variable: '--font-prata',
+})
+
+const displayCondensed = Roboto_Flex({
+  subsets: ['latin', 'cyrillic'],
+  axes: ['wdth'],
+  variable: '--font-sofia',
+})
 
 const pacifico = Pacifico({
   subsets: ['latin', 'cyrillic'],
@@ -23,6 +56,7 @@ const manrope = Manrope({
 const cormorant = Cormorant_Garamond({
   subsets: ['latin', 'cyrillic'],
   weight: ['500', '600', '700'],
+  style: ['normal', 'italic'],
   variable: '--font-cormorant',
 })
 
@@ -75,10 +109,11 @@ export default function RootLayout({
   return (
     <html
       lang="ru"
-      className={`${manrope.variable} ${cormorant.variable} ${daysOne.variable} ${yellowtail.variable} ${oswald.variable} ${pacifico.variable} bg-background`}
+      className={`${manrope.variable} ${cormorant.variable} ${daysOne.variable} ${yellowtail.variable} ${oswald.variable} ${pacifico.variable} ${neueMontreal.variable} ${instrumentSerif.variable} ${prata.variable} ${displayCondensed.variable} bg-background`}
     >
       <body className="antialiased">
         {children}
+        <SiteFooter />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>

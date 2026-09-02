@@ -43,6 +43,9 @@
   --font-script: var(--font-yellowtail);
   --font-brand: var(--font-pacifico);
   --font-condensed: var(--font-oswald);
+  --font-display-condensed: var(--font-sofia);
+  --font-heading-sans: var(--font-neue-montreal);
+  --font-heading-serif: var(--font-instrument), var(--font-cormorant);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
