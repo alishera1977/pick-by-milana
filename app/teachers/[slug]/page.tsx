@@ -40,14 +40,14 @@ function DesktopMilanaRecommendation({ text }: { text: string }) {
   const { lead, rest } = splitRecommendationLead(text)
 
   return (
-    <div className="-mt-3 ml-8 flex w-[85%] max-w-[380px] items-center justify-end gap-8 overflow-visible xl:ml-10 xl:max-w-[420px]">
+    <div className="mt-2 ml-2 flex w-[90%] max-w-[400px] items-end justify-end gap-2 overflow-visible xl:ml-4 xl:max-w-[440px]">
       <img
         src="/figma/milana-point.png"
         alt=""
-        className="h-auto w-[250px] max-w-[250px] shrink-0 translate-x-16 translate-y-4 select-none"
+        className="h-auto w-[200px] max-w-[200px] shrink-0 -translate-x-2 select-none xl:w-[220px] xl:max-w-[220px]"
       />
-      <div className="w-[315px] shrink-0 overflow-visible">
-        <p className="w-full overflow-visible break-words font-sans text-[12px] leading-[1.42] text-black/75 xl:text-[12.5px]">
+      <div className="min-w-0 flex-1 pb-2">
+        <p className="w-full break-words font-sans text-[12px] leading-[1.42] text-black/75 xl:text-[12.5px]">
           {lead ? (
             <>
               <span className="font-[family-name:var(--font-prata)] text-[14px] italic leading-[1.35] text-black/88 xl:text-[15px]">
@@ -98,7 +98,7 @@ export default async function TeacherPage({ params }: PageProps) {
         {/* Desktop — editorial layout */}
         <div className="relative hidden px-10 pb-8 pt-8 lg:block">
           <div className="grid grid-cols-[minmax(0,1.12fr)_minmax(0,0.88fr)] items-start gap-5 xl:gap-6">
-            <div className="min-w-0 max-w-[580px]">
+            <div className="relative z-10 min-w-0 max-w-[580px]">
               <div className="flex flex-wrap items-center gap-2.5">
                 <span className="inline-flex rounded-[7px] bg-[#FFF3A6] px-2.5 py-[5px] font-sans text-[11px] font-semibold uppercase tracking-[0.02em] text-black">
                   {teacher.tag}
@@ -204,13 +204,13 @@ export default async function TeacherPage({ params }: PageProps) {
             ))}
           </ul>
 
-          <div className="mt-5 flex items-end gap-3">
+          <div className="mt-5 flex items-end gap-2.5">
             <img
               src="/figma/milana-point.png"
               alt=""
-              className="-translate-y-8 w-[50%] max-w-[210px] shrink-0 select-none"
+              className="-translate-y-2 w-[38%] max-w-[140px] shrink-0 select-none"
             />
-            <p className="mb-2 min-w-0 font-sans text-[12px] leading-[1.4] text-black/68">
+            <p className="mb-1 min-w-0 flex-1 font-sans text-[12px] leading-[1.4] text-black/68">
               {teacher.recommendation}
             </p>
           </div>

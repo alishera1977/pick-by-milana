@@ -57,7 +57,7 @@ function GoalRow({
         {text}
       </p>
       <span className="mt-auto inline-flex shrink-0 items-center pt-2 font-[family-name:var(--font-heading-serif)] text-[12px] italic uppercase tracking-[0.02em] text-black transition-transform duration-200 group-hover:translate-x-1 sm:pt-3 sm:text-[13px] lg:pt-4 lg:text-[13px]">
-        Подробнее
+        Оставить заявку
       </span>
     </div>
   )
@@ -80,8 +80,8 @@ function GoalRow({
   )
 
   return (
-    <button
-      type="button"
+    <a
+      href="/anketa?type=teacher"
       className={`group flex h-[168px] w-full min-h-0 overflow-hidden rounded-[28px] text-left transition-[background,border-color] duration-200 sm:h-[220px] sm:rounded-[32px] md:grid md:h-[220px] md:min-h-0 lg:h-[248px] lg:rounded-[36px] ${gridCols}`}
       style={{
         background: 'rgba(255, 255, 255, 0.22)',
@@ -100,7 +100,7 @@ function GoalRow({
           {photoBlock}
         </>
       )}
-    </button>
+    </a>
   )
 }
 

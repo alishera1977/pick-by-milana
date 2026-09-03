@@ -1,40 +1,3 @@
-function YellowStar({ className = '' }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 24 24"
-      fill="none"
-      aria-hidden="true"
-    >
-      <path
-        d="M12 2.2 13.6 9.4 21 12 13.6 14.6 12 21.8 10.4 14.6 3 12l7.4-2.6L12 2.2Z"
-        stroke="#58683F"
-        strokeWidth="1.6"
-        strokeLinejoin="round"
-      />
-    </svg>
-  )
-}
-
-function YellowHeart({ className = '' }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 24 24"
-      fill="none"
-      aria-hidden="true"
-    >
-      <path
-        d="M19.5 12.572 12 20l-7.5-7.428A4.8 4.8 0 0 1 12 5.178a4.8 4.8 0 0 1 7.5 7.394Z"
-        stroke="#58683F"
-        strokeWidth="1.7"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  )
-}
-
 function SketchArrow({ className = '' }: { className?: string }) {
   return (
     <svg
@@ -61,7 +24,6 @@ function SketchArrow({ className = '' }: { className?: string }) {
 
 function ChooseCard({
   num,
-  icon,
   title,
   text,
   href,
@@ -69,7 +31,6 @@ function ChooseCard({
   external = false,
 }: {
   num: string
-  icon: React.ReactNode
   title: string
   text: string
   href: string
@@ -81,12 +42,9 @@ function ChooseCard({
       className="flex min-w-0 flex-col rounded-[18px] border border-black/12 p-4 sm:rounded-[22px] sm:p-5"
       style={{ background: 'rgba(255, 255, 255, 0.28)' }}
     >
-      <div className="flex items-start justify-between">
-        <span className="font-[family-name:var(--font-prata)] text-[34px] leading-none text-[#58683F] sm:text-[40px]">
-          {num}
-        </span>
-        {icon}
-      </div>
+      <span className="font-[family-name:var(--font-prata)] text-[34px] leading-none text-[#58683F] sm:text-[40px]">
+        {num}
+      </span>
 
       <h3 className="mt-4 font-sans text-[15px] font-semibold leading-[1.25] text-black sm:text-[16px]">
         {title}
@@ -148,7 +106,6 @@ export function ChooseTeacherSection() {
           <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:mt-10">
             <ChooseCard
               num="01"
-              icon={<YellowStar className="size-[18px] sm:size-5" />}
               title="Хочешь выбрать сам?"
               text="Посмотри анкеты преподавателей: опыт, специализацию, стиль занятий, стоимость и кому особенно подойдёт каждый из них."
               href="#team"
@@ -156,7 +113,6 @@ export function ChooseTeacherSection() {
             />
             <ChooseCard
               num="02"
-              icon={<YellowHeart className="size-[18px] sm:size-5" />}
               title="Не знаешь, кто нужен именно тебе?"
               text="Напиши мне. Расскажи свой уровень, цель, прошлый опыт и какой формат занятий тебе комфортен. Я посмотрю на запрос и скажу, к кому из команды я бы пошла на твоём месте."
               href="/anketa"
@@ -165,7 +121,6 @@ export function ChooseTeacherSection() {
           </div>
 
           <div className="relative mt-8 w-fit sm:mt-10">
-            <YellowHeart className="absolute -left-1 -top-2 size-4 rotate-[-18deg] sm:size-[18px]" />
             <p
               className="rounded-[100%] border-[1.5px] border-[#58683F] px-6 py-4 text-center font-[family-name:var(--font-heading-serif)] text-[18px] italic leading-[1.15] text-black sm:px-8 sm:py-5 sm:text-[22px]"
               style={{ transform: 'rotate(-4deg)' }}
