@@ -1,0 +1,63 @@
+name: Deploy to Beget
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build static Beget package
+        run: npm run build:beget
+
+      - name: Verify beget-deploy/index.html
+        run: |
+          if [ ! -f beget-deploy/index.html ]; then
+            echo "beget-deploy/index.html is missing"
+            exit 1
+          fi
+          if [ -f beget-deploy/send-anketa.config.php ]; then
+            echo "send-anketa.config.php must not be in the deploy package"
+            exit 1
+          fi
+
+      - name: Configure SSH
+        env:
+          BEGET_HOST: ${{ secrets.BEGET_HOST }}
+          BEGET_PORT: ${{ secrets.BEGET_PORT }}
+          BEGET_SSH_KEY: ${{ secrets.BEGET_SSH_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          printf '%s\n' "$BEGET_SSH_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -p "$BEGET_PORT" -H "$BEGET_HOST" >> ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+
+      - name: Deploy to Beget
+        env:
+          BEGET_HOST: ${{ secrets.BEGET_HOST }}
+          BEGET_USER: ${{ secrets.BEGET_USER }}
+          BEGET_PORT: ${{ secrets.BEGET_PORT }}
+        run: |
+          rsync -az --delete \
+            --exclude='send-anketa.config.php' \
+            --exclude='cgi-bin/' \
+            -e "ssh -p $BEGET_PORT -o IdentitiesOnly=yes -i $HOME/.ssh/id_ed25519" \
+            beget-deploy/ \
+            "$BEGET_USER@$BEGET_HOST:~/pickenglish.ru/public_html/"

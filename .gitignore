@@ -19,6 +19,7 @@ yarn-error.log*
 # env files
 .env*
 send-anketa.config.php
+!send-anketa.config.example.php
 
 # beget deploy output
 /beget-deploy/
