@@ -46,13 +46,15 @@ function ConsentCheckboxes({
         />
         <span>
           Я даю согласие с условиями{' '}
-          <Link
-            href="/offer/"
+          <a
+            href="/offer.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
             className="underline underline-offset-2 hover:text-white"
             onClick={(e) => e.stopPropagation()}
           >
             Оферты
-          </Link>
+          </a>
         </span>
       </label>
 
@@ -66,8 +68,16 @@ function ConsentCheckboxes({
         />
         <span>
           Я даю{' '}
-          <span className="underline underline-offset-2">согласие</span> на
-          обработку персональных данных в соответствии с{' '}
+          <a
+            href="/personal-data-consent.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline underline-offset-2 hover:text-white"
+            onClick={(e) => e.stopPropagation()}
+          >
+            согласие на обработку персональных данных
+          </a>{' '}
+          в соответствии с{' '}
           <Link
             href="/privacy/"
             className="underline underline-offset-2 hover:text-white"
@@ -87,8 +97,15 @@ function ConsentCheckboxes({
         />
         <span>
           Я даю{' '}
-          <span className="underline underline-offset-2">согласие</span> на
-          получение рассылок и рекламных материалов
+          <a
+            href="/mailing-consent.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline underline-offset-2 hover:text-white"
+            onClick={(e) => e.stopPropagation()}
+          >
+            согласие на получение рассылок и рекламных материалов
+          </a>
         </span>
       </label>
     </div>

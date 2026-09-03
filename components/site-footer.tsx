@@ -3,9 +3,9 @@ import Link from 'next/link'
 const olive = '#58683F'
 
 const legalLinks = [
-  { href: '/privacy', label: 'Политика конфиденциальности' },
-  { href: '/offer', label: 'Договор / Оферта' },
-  { href: '/requisites', label: 'Реквизиты' },
+  { href: '/privacy/', label: 'Политика конфиденциальности', external: false },
+  { href: '/offer.pdf', label: 'Договор / Оферта', external: true },
+  { href: '/requisites/', label: 'Реквизиты', external: false },
 ] as const
 
 export function SiteFooter() {
@@ -30,16 +30,29 @@ export function SiteFooter() {
           aria-label="Юридическая информация"
           className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:gap-x-6 sm:gap-y-2"
         >
-          {legalLinks.map(({ href, label }) => (
-            <Link
-              key={href}
-              href={href}
-              className="font-sans text-[11px] transition-colors hover:text-black sm:text-[12px]"
-              style={{ color: olive }}
-            >
-              {label}
-            </Link>
-          ))}
+          {legalLinks.map(({ href, label, external }) =>
+            external ? (
+              <a
+                key={href}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-sans text-[11px] transition-colors hover:text-black sm:text-[12px]"
+                style={{ color: olive }}
+              >
+                {label}
+              </a>
+            ) : (
+              <Link
+                key={href}
+                href={href}
+                className="font-sans text-[11px] transition-colors hover:text-black sm:text-[12px]"
+                style={{ color: olive }}
+              >
+                {label}
+              </Link>
+            ),
+          )}
         </nav>
       </div>
     </footer>
