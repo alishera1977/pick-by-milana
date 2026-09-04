@@ -13,7 +13,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $config = pick_load_config();
 $token = trim(isset($config['telegram_bot_token']) ? (string) $config['telegram_bot_token'] : '');
 $chatId = trim(isset($config['telegram_chat_id']) ? (string) $config['telegram_chat_id'] : '');
-$botUsername = ltrim(trim(isset($config['telegram_bot_username']) ? (string) $config['telegram_bot_username'] : ''), '@');
 
 if ($token === '' || $chatId === '') {
     http_response_code(503);
@@ -33,14 +32,8 @@ if (!is_array($data)) {
 }
 
 $variant = ((isset($data['variant']) ? $data['variant'] : '') === 'teacher') ? 'teacher' : 'milana';
-$telegram = trim(isset($data['telegram']) ? (string) $data['telegram'] : '');
+$telegramRaw = trim(isset($data['telegram']) ? (string) $data['telegram'] : '');
 $promo = !empty($data['promo']);
-
-if ($telegram === '') {
-    http_response_code(400);
-    echo json_encode(array('success' => false, 'error' => 'Укажите ник в Telegram.'), JSON_UNESCAPED_UNICODE);
-    exit;
-}
 
 $name = trim(isset($data['name']) ? (string) $data['name'] : '');
 $phone = trim(isset($data['phone']) ? (string) $data['phone'] : '');
@@ -78,7 +71,6 @@ if ($variant === 'teacher') {
     }
 }
 
-$handle = pick_format_telegram_handle($telegram);
 $name = pick_sanitize_field($name, 120);
 $phone = pick_sanitize_field($phone, 80);
 $email = pick_sanitize_field($email, 180);
@@ -87,7 +79,10 @@ $teacherLabel = isset($teacherLabels[$teacher])
     : pick_sanitize_field($teacher, 120);
 $scenarioTeacher = pick_resolve_teacher_scenario($variant, $teacher);
 
-$lines = array("🆕 Заявка с сайта pick by Milana", "");
+$username = pick_normalize_telegram_username($telegramRaw);
+$hasValidUsername = ($username !== '');
+
+$lines = array('🆕 Заявка с сайта PICK', '');
 
 if ($variant === 'teacher') {
     $lines[] = 'Тип: подбор преподавателя';
@@ -99,12 +94,34 @@ if ($variant === 'teacher') {
     $lines[] = 'Тип: написать Милане';
 }
 
-$lines[] = 'Telegram: ' . $handle;
+if ($hasValidUsername) {
+    $lines[] = 'Telegram: @' . $username;
+} else {
+    $lines[] = 'Telegram: Telegram для быстрой связи не указан';
+}
+
 $lines[] = 'Рассылка: ' . ($promo ? 'да' : 'нет');
 
 $message = implode("\n", $lines);
 
-$notify = pick_telegram_send_message($token, $chatId, $message);
+$replyMarkup = null;
+if ($hasValidUsername) {
+    $clientUrl = pick_client_message_url($username, $scenarioTeacher);
+    if ($clientUrl !== '') {
+        $replyMarkup = array(
+            'inline_keyboard' => array(
+                array(
+                    array(
+                        'text' => 'Написать клиенту',
+                        'url' => $clientUrl,
+                    ),
+                ),
+            ),
+        );
+    }
+}
+
+$notify = pick_telegram_send_message($token, $chatId, $message, $replyMarkup);
 if (empty($notify['ok'])) {
     $error = !empty($notify['description'])
         ? (string) $notify['description']
@@ -114,42 +131,4 @@ if (empty($notify['ok'])) {
     exit;
 }
 
-$applicationId = pick_generate_application_id();
-// Extremely unlikely collision; retry a few times.
-for ($i = 0; $i < 5; $i++) {
-    if (pick_load_application($applicationId) === null) {
-        break;
-    }
-    $applicationId = pick_generate_application_id();
-}
-
-$application = array(
-    'application_id' => $applicationId,
-    'teacher' => $scenarioTeacher,
-    'created_at' => gmdate('c'),
-    'activated' => false,
-);
-
-if ($name !== '') {
-    $application['name'] = $name;
-}
-
-if (!pick_save_application($application)) {
-    http_response_code(500);
-    echo json_encode(
-        array('success' => false, 'error' => 'Не удалось сохранить заявку на сервере.'),
-        JSON_UNESCAPED_UNICODE
-    );
-    exit;
-}
-
-$result = array(
-    'success' => true,
-    'application_id' => $applicationId,
-);
-
-if ($botUsername !== '') {
-    $result['telegram_url'] = 'https://t.me/' . rawurlencode($botUsername) . '?start=' . rawurlencode($applicationId);
-}
-
-echo json_encode($result, JSON_UNESCAPED_UNICODE);
+echo json_encode(array('success' => true), JSON_UNESCAPED_UNICODE);

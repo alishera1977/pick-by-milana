@@ -112,11 +112,7 @@ function ConsentCheckboxes({
   )
 }
 
-function SuccessState({
-  telegramUrl,
-}: {
-  telegramUrl?: string
-}) {
+function SuccessState() {
   return (
     <div
       className="rounded-[20px] px-6 py-10 text-center sm:rounded-[28px] sm:px-10 sm:py-14"
@@ -126,21 +122,9 @@ function SuccessState({
         Заявка отправлена 🤍
       </h1>
       <p className="mx-auto mt-4 max-w-[36ch] font-sans text-[14px] leading-[1.45] text-white/75 sm:text-[15px]">
-        Остался последний шаг — перейди в Telegram, чтобы я могла продолжить
-        общение с тобой.
+        Я скоро свяжусь с тобой.
       </p>
-      {telegramUrl ? (
-        <a
-          href={telegramUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-8 inline-flex w-full max-w-[320px] items-center justify-center px-6 py-3.5 font-[family-name:var(--font-prata)] text-[14px] uppercase tracking-[0.06em] transition-opacity hover:opacity-90 sm:w-auto sm:text-[15px]"
-          style={{ background: cream, color: olive }}
-        >
-          Продолжить в Telegram
-        </a>
-      ) : null}
-      <div className="mt-5">
+      <div className="mt-8">
         <Link
           href="/"
           className="inline-flex items-center justify-center font-sans text-[12px] text-white/70 underline-offset-2 transition-colors hover:text-white hover:underline sm:text-[13px]"
@@ -154,7 +138,6 @@ function SuccessState({
 
 export function AnketaForm({ variant = 'milana' }: { variant?: 'milana' | 'teacher' }) {
   const [sent, setSent] = useState(false)
-  const [telegramUrl, setTelegramUrl] = useState('')
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
   const [email, setEmail] = useState('')
@@ -193,14 +176,12 @@ export function AnketaForm({ variant = 'milana' }: { variant?: 'milana' | 'teach
       const data = (await response.json().catch(() => ({}))) as {
         success?: boolean
         error?: string
-        telegram_url?: string
       }
 
       if (!response.ok || !data.success) {
         throw new Error(data.error || 'Не удалось отправить заявку. Попробуйте ещё раз.')
       }
 
-      setTelegramUrl(typeof data.telegram_url === 'string' ? data.telegram_url : '')
       setSent(true)
     } catch (err) {
       const message =
@@ -214,7 +195,7 @@ export function AnketaForm({ variant = 'milana' }: { variant?: 'milana' | 'teach
   }
 
   if (sent) {
-    return <SuccessState telegramUrl={telegramUrl} />
+    return <SuccessState />
   }
 
   return (

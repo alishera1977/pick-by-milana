@@ -21,9 +21,6 @@ yarn-error.log*
 send-anketa.config.php
 !send-anketa.config.example.php
 
-# server-side anketa applications (runtime data on Beget)
-/applications/*.json
-
 # beget deploy output
 /beget-deploy/
 pick-beget-deploy.zip

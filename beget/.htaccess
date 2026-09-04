@@ -23,11 +23,8 @@ Options -Indexes
   </IfModule>
 </Files>
 
-# Protect stored applications directory
 <IfModule mod_rewrite.c>
   RewriteEngine On
-
-  RewriteRule ^applications(/|$) - [F,L]
 
   # Serve existing files and directories as-is
   RewriteCond %{REQUEST_FILENAME} -f [OR]

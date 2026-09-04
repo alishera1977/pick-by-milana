@@ -35,12 +35,12 @@ jobs:
             echo "beget-deploy/send-anketa.php is missing"
             exit 1
           fi
-          if [ ! -f beget-deploy/telegram-webhook.php ]; then
-            echo "beget-deploy/telegram-webhook.php is missing"
-            exit 1
-          fi
           if [ ! -f beget-deploy/telegram-app-lib.php ]; then
             echo "beget-deploy/telegram-app-lib.php is missing"
+            exit 1
+          fi
+          if [ -f beget-deploy/telegram-webhook.php ]; then
+            echo "telegram-webhook.php must not be in the deploy package"
             exit 1
           fi
           if [ -f beget-deploy/send-anketa.config.php ]; then
@@ -70,7 +70,6 @@ jobs:
           rsync -az --delete \
             --exclude='send-anketa.config.php' \
             --exclude='cgi-bin/' \
-            --exclude='applications/*.json' \
             -e "ssh -p $BEGET_PORT -o IdentitiesOnly=yes -i $HOME/.ssh/id_ed25519" \
             beget-deploy/ \
             "$BEGET_USER@$BEGET_HOST:~/pickenglish.ru/public_html/"

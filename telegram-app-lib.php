@@ -1,6 +1,6 @@
 <?php
 /**
- * Shared helpers for anketa applications and Telegram follow-up messages.
+ * Shared helpers for anketa Telegram notifications.
  * Compatible with PHP 5.6+ (Beget default CLI / module).
  */
 
@@ -12,39 +12,6 @@ function pick_load_config()
     }
     $config = require $configPath;
     return is_array($config) ? $config : array();
-}
-
-function pick_applications_dir()
-{
-    $dir = __DIR__ . '/applications';
-    if (!is_dir($dir)) {
-        mkdir($dir, 0750, true);
-    }
-
-    $htaccess = $dir . '/.htaccess';
-    if (!is_file($htaccess)) {
-        file_put_contents(
-            $htaccess,
-            "Options -Indexes\n<IfModule mod_authz_core.c>\n  Require all denied\n</IfModule>\n<IfModule !mod_authz_core.c>\n  Order allow,deny\n  Deny from all\n</IfModule>\n"
-        );
-    }
-
-    return $dir;
-}
-
-function pick_is_valid_application_id($id)
-{
-    return (bool) preg_match('/^PICK-\d{8}-[A-Z0-9]{4}$/', $id);
-}
-
-function pick_generate_application_id()
-{
-    $alphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-    $suffix = '';
-    for ($i = 0; $i < 4; $i++) {
-        $suffix .= $alphabet[mt_rand(0, strlen($alphabet) - 1)];
-    }
-    return 'PICK-' . gmdate('Ymd') . '-' . $suffix;
 }
 
 /**
@@ -73,42 +40,6 @@ function pick_resolve_teacher_scenario($variant, $teacher)
     return isset($map[$teacher]) ? $map[$teacher] : 'selection';
 }
 
-function pick_application_path($applicationId)
-{
-    if (!pick_is_valid_application_id($applicationId)) {
-        return null;
-    }
-    return pick_applications_dir() . '/' . $applicationId . '.json';
-}
-
-function pick_save_application($payload)
-{
-    $id = isset($payload['application_id']) ? (string) $payload['application_id'] : '';
-    $path = pick_application_path($id);
-    if ($path === null) {
-        return false;
-    }
-
-    $json = json_encode($payload, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-    if ($json === false) {
-        return false;
-    }
-
-    return file_put_contents($path, $json, LOCK_EX) !== false;
-}
-
-function pick_load_application($applicationId)
-{
-    $path = pick_application_path($applicationId);
-    if ($path === null || !is_readable($path)) {
-        return null;
-    }
-
-    $raw = file_get_contents($path);
-    $data = $raw ? json_decode($raw, true) : null;
-    return is_array($data) ? $data : null;
-}
-
 function pick_teacher_message($teacher)
 {
     $messages = array(
@@ -116,19 +47,57 @@ function pick_teacher_message($teacher)
         'gleb' => "привет! это милана из PICK 🤍 увидела твою заявку на занятия с глебом)\n\nдумаю, с ним будет классно, если хочется много практиковаться, разговаривать и заниматься в достаточно лёгкой атмосфере. стоимость занятий — 1800 ₽/час.\n\nрасскажи мне немного о себе: какой у тебя примерно уровень, для чего сейчас нужен английский и занимался(ась) ли раньше с преподавателем?\n\nпосле этого сверим ваше расписание и договоримся о первом занятии)",
         'fedor' => "привет! это милана из PICK 🤍 увидела твою заявку на занятия с федей)\n\nклассный выбор! федя очень эрудированный и с ним правда легко найти тему для разговора — от кино и путешествий до истории и культуры. плюс у него подтверждённый c1, и он хорошо объясняет именно логику английского, а не просто даёт правила. стоимость занятий — 2500 ₽/час.\n\nрасскажи немного о себе: какой у тебя примерно уровень, для чего сейчас нужен английский и занимался(ась) ли раньше с преподавателем?\n\nдальше сверим ваше расписание и договоримся о первом занятии)",
         'mary' => "привет! это милана из PICK 🤍 увидела твою заявку на занятия с Mary)\n\nотличный выбор) Mary с детства жила в канаде, там окончила школу и университет, поэтому с ней особенно классно прокачивать живой естественный английский. также она работает с IELTS и Business English. стоимость занятий — 3500 ₽/час.\n\nрасскажи мне немного о себе: какой у тебя примерно уровень, для чего сейчас нужен английский и занимался(ась) ли раньше с преподавателем?\n\nпосле этого сверим ваше расписание и договоримся о первом занятии)",
-        'milana' => "привет! это милана из PICK 🤍 увидела твою заявку на сайте)\n\nесли ты хотел(а) записаться лично ко мне — сейчас, к сожалению, все места заняты, но я могу добавить тебя в лист ожидания. стоимость моих занятий — 6000 ₽/час.\n\nнапиши, пожалуйста, хочешь ли, чтобы я добавила тебя в лист ожидания 🥹",
+        'milana' => "привет! это милана из PICK 🤍 увидела твою заявку на сайте)\n\nесли ты хотел(а) записаться лично ко мне — сейчас, к сожалению, все места заняты, но я могу добавить тебя в лист ожидания. стоимость моих занятий — 6000 ₽/час.\n\nнапиши, пожалуйста, хочешь ли, чтобы я добавила тебя в лист ожидания 🤍",
         'selection' => "привет! это милана из PICK 🤍 увидела твою заявку на сайте)\n\nзанятия с преподавателями PICK стоят от 1800 до 3500 ₽/час.\n\nрасскажи немного про свой английский: какой примерно уровень, для чего хочешь его подтянуть и что для тебя особенно важно в преподавателе. я посмотрю, кто из ребят тебе больше подойдёт)",
     );
 
     return isset($messages[$teacher]) ? $messages[$teacher] : $messages['selection'];
 }
 
-function pick_telegram_send_message($token, $chatId, $text)
+/**
+ * Normalize Telegram username: trim, strip @.
+ * Returns username without @, or '' if missing/invalid.
+ */
+function pick_normalize_telegram_username($raw)
 {
-    $payload = json_encode(array(
+    $username = trim((string) $raw);
+    $username = ltrim($username, '@');
+    $username = trim($username);
+
+    if ($username === '') {
+        return '';
+    }
+
+    if (!preg_match('/^[A-Za-z0-9_]+$/', $username)) {
+        return '';
+    }
+
+    return $username;
+}
+
+function pick_client_message_url($username, $teacher)
+{
+    $username = pick_normalize_telegram_username($username);
+    if ($username === '') {
+        return '';
+    }
+
+    $text = pick_teacher_message($teacher);
+    return 'https://t.me/' . rawurlencode($username) . '?text=' . rawurlencode($text);
+}
+
+function pick_telegram_send_message($token, $chatId, $text, $replyMarkup = null)
+{
+    $payloadData = array(
         'chat_id' => $chatId,
         'text' => $text,
-    ), JSON_UNESCAPED_UNICODE);
+    );
+
+    if (is_array($replyMarkup)) {
+        $payloadData['reply_markup'] = $replyMarkup;
+    }
+
+    $payload = json_encode($payloadData, JSON_UNESCAPED_UNICODE);
 
     $context = stream_context_create(array(
         'http' => array(
@@ -163,16 +132,4 @@ function pick_sanitize_field($value, $max = 500)
         $value = substr($value, 0, $max);
     }
     return trim($value);
-}
-
-function pick_format_telegram_handle($telegram)
-{
-    $telegram = pick_sanitize_field($telegram, 120);
-    if ($telegram === '') {
-        return '';
-    }
-    if (strpos($telegram, '@') === 0) {
-        return $telegram;
-    }
-    return '@' . ltrim($telegram, '@');
 }
