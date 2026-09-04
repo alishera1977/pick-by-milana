@@ -1,4 +1,5 @@
 DirectoryIndex index.html
+Options -Indexes
 
 # Protect Telegram credentials from direct HTTP access
 <Files "send-anketa.config.php">
@@ -11,8 +12,22 @@ DirectoryIndex index.html
   </IfModule>
 </Files>
 
+# Protect shared PHP helpers
+<Files "telegram-app-lib.php">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</Files>
+
+# Protect stored applications directory
 <IfModule mod_rewrite.c>
   RewriteEngine On
+
+  RewriteRule ^applications(/|$) - [F,L]
 
   # Serve existing files and directories as-is
   RewriteCond %{REQUEST_FILENAME} -f [OR]

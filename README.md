@@ -1,33 +1,103 @@
 # pick-by-milana
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [v0](https://v0.app).
+Next.js static export for [pickenglish.ru](https://pickenglish.ru), deployed to Beget via GitHub Actions.
 
-## Built with v0
-
-This repository is linked to a [v0](https://v0.app) project. You can continue developing by visiting the link below -- start new chats to make changes, and v0 will push commits directly to this repo. Every merge to `main` will automatically deploy.
-
-[Continue working on v0 →](https://v0.app/chat/projects/prj_TOfuGyVlU5wiEdL63VK8AkPTSvCo)
-
-## Getting Started
-
-First, run the development server:
+## Local development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Beget production build
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build:beget
+```
 
-## Learn More
+This creates `beget-deploy/` with static pages + PHP handlers.  
+Real `send-anketa.config.php` is never included.
 
-To learn more, take a look at the following resources:
+## Telegram follow-up after anketa
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-- [v0 Documentation](https://v0.app/docs) - learn about v0 and how to use it.
+After a user submits the form:
+
+1. `send-anketa.php` notifies Milana (existing behavior).
+2. Server creates `application_id` and saves a short JSON file in `applications/`.
+3. Frontend shows **Продолжить в Telegram**.
+4. User opens the bot with `/start APPLICATION_ID`.
+5. `telegram-webhook.php` sends the matching teacher message once.
+
+### 1. Configure bot username on Beget
+
+Edit production `~/pickenglish.ru/public_html/send-anketa.config.php`:
+
+```php
+return [
+    'telegram_bot_token' => '...',
+    'telegram_chat_id' => '...',
+    'telegram_bot_username' => 'YOUR_BOT_USERNAME', // without @
+];
+```
+
+Do not commit this file.
+
+### 2. Register Telegram webhook
+
+Replace `TOKEN` with the real bot token (only on the server / locally in a secure shell):
+
+```bash
+curl "https://api.telegram.org/botTOKEN/setWebhook?url=https://pickenglish.ru/telegram-webhook.php"
+```
+
+Check webhook:
+
+```bash
+curl "https://api.telegram.org/botTOKEN/getWebhookInfo"
+```
+
+Expected URL:
+
+`https://pickenglish.ru/telegram-webhook.php`
+
+### 3. Permissions for applications/
+
+On Beget, PHP must be able to write to:
+
+`~/pickenglish.ru/public_html/applications/`
+
+The folder is created automatically on first request.  
+Direct HTTP access is blocked by `.htaccess`.
+
+Suggested permissions:
+
+```bash
+chmod 750 ~/pickenglish.ru/public_html/applications
+```
+
+### 4. Test deep link
+
+1. Submit anketa on the site.
+2. Click **Продолжить в Telegram**.
+3. Press Start in the bot.
+4. Confirm the correct teacher message is sent once.
+5. Press Start again → should get:  
+   `мы уже получили твою заявку 🥹 можешь просто написать мне здесь`
+
+### 5. Teacher scenario keys
+
+Form values are mapped to Telegram scenarios:
+
+| Website value | Scenario key | Message |
+|---|---|---|
+| `masha-start` | `masha` | Маша |
+| `gleb` | `gleb` | Глеб |
+| `fedya` | `fedor` | Федя |
+| `masha-expert` | `mary` | Mary |
+| anketa without teacher (`variant=milana`) | `milana` | лист ожидания |
+| `help` | `selection` | подбор |
+
+Mapping and message texts live in `telegram-app-lib.php`  
+(`pick_resolve_teacher_scenario`, `pick_teacher_message`).
+
+Page URLs for teachers stay unchanged (`/teachers/masha-expert/`, `/teachers/fedya/`, etc.).

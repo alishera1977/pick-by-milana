@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+require_once __DIR__ . '/telegram-app-lib.php';
+
 header('Content-Type: application/json; charset=utf-8');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -9,25 +11,15 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-$configPath = __DIR__ . '/send-anketa.config.php';
-if (!is_readable($configPath)) {
-    http_response_code(503);
-    echo json_encode(
-        ['success' => false, 'error' => 'Сервер не настроен. Создайте файл send-anketa.config.php.'],
-        JSON_UNESCAPED_UNICODE
-    );
-    exit;
-}
-
-/** @var array{telegram_bot_token?: string, telegram_chat_id?: string} $config */
-$config = require $configPath;
+$config = pick_load_config();
 $token = trim((string) ($config['telegram_bot_token'] ?? ''));
 $chatId = trim((string) ($config['telegram_chat_id'] ?? ''));
+$botUsername = ltrim(trim((string) ($config['telegram_bot_username'] ?? '')), '@');
 
 if ($token === '' || $chatId === '') {
     http_response_code(503);
     echo json_encode(
-        ['success' => false, 'error' => 'Укажите TELEGRAM_BOT_TOKEN и TELEGRAM_CHAT_ID в send-anketa.config.php.'],
+        ['success' => false, 'error' => 'Укажите telegram_bot_token и telegram_chat_id в send-anketa.config.php.'],
         JSON_UNESCAPED_UNICODE
     );
     exit;
@@ -111,6 +103,7 @@ $name = sanitize_field($name, 120);
 $phone = sanitize_field($phone, 80);
 $email = sanitize_field($email, 180);
 $teacherLabel = $teacherLabels[$teacher] ?? sanitize_field($teacher, 120);
+$scenarioTeacher = pick_resolve_teacher_scenario($variant, $teacher);
 
 $lines = ["🆕 Заявка с сайта pick by Milana", ""];
 
@@ -129,31 +122,52 @@ $lines[] = 'Рассылка: ' . ($promo ? 'да' : 'нет');
 
 $message = implode("\n", $lines);
 
-$payload = json_encode([
-    'chat_id' => $chatId,
-    'text' => $message,
-], JSON_UNESCAPED_UNICODE);
-
-$context = stream_context_create([
-    'http' => [
-        'method' => 'POST',
-        'header' => "Content-Type: application/json\r\n",
-        'content' => $payload,
-        'timeout' => 15,
-        'ignore_errors' => true,
-    ],
-]);
-
-$responseBody = @file_get_contents("https://api.telegram.org/bot{$token}/sendMessage", false, $context);
-$response = $responseBody ? json_decode($responseBody, true) : null;
-
-if (!is_array($response) || empty($response['ok'])) {
-    $error = is_array($response) && !empty($response['description'])
-        ? (string) $response['description']
+$notify = pick_telegram_send_message($token, $chatId, $message);
+if (empty($notify['ok'])) {
+    $error = !empty($notify['description'])
+        ? (string) $notify['description']
         : 'Не удалось отправить сообщение в Telegram.';
     http_response_code(502);
     echo json_encode(['success' => false, 'error' => $error], JSON_UNESCAPED_UNICODE);
     exit;
 }
 
-echo json_encode(['success' => true], JSON_UNESCAPED_UNICODE);
+$applicationId = pick_generate_application_id();
+// Extremely unlikely collision; retry a few times.
+for ($i = 0; $i < 5; $i++) {
+    if (pick_load_application($applicationId) === null) {
+        break;
+    }
+    $applicationId = pick_generate_application_id();
+}
+
+$application = [
+    'application_id' => $applicationId,
+    'teacher' => $scenarioTeacher,
+    'created_at' => gmdate('c'),
+    'activated' => false,
+];
+
+if ($name !== '') {
+    $application['name'] = $name;
+}
+
+if (!pick_save_application($application)) {
+    http_response_code(500);
+    echo json_encode(
+        ['success' => false, 'error' => 'Не удалось сохранить заявку на сервере.'],
+        JSON_UNESCAPED_UNICODE
+    );
+    exit;
+}
+
+$result = [
+    'success' => true,
+    'application_id' => $applicationId,
+];
+
+if ($botUsername !== '') {
+    $result['telegram_url'] = 'https://t.me/' . rawurlencode($botUsername) . '?start=' . rawurlencode($applicationId);
+}
+
+echo json_encode($result, JSON_UNESCAPED_UNICODE);
