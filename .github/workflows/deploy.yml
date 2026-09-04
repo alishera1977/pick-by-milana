@@ -39,6 +39,10 @@ jobs:
             echo "beget-deploy/telegram-webhook.php is missing"
             exit 1
           fi
+          if [ ! -f beget-deploy/telegram-app-lib.php ]; then
+            echo "beget-deploy/telegram-app-lib.php is missing"
+            exit 1
+          fi
           if [ -f beget-deploy/send-anketa.config.php ]; then
             echo "send-anketa.config.php must not be in the deploy package"
             exit 1

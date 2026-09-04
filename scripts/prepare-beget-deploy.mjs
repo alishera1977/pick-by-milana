@@ -74,4 +74,9 @@ if (!existsSync(join(deployDir, 'telegram-webhook.php'))) {
   process.exit(1)
 }
 
+if (!existsSync(join(deployDir, 'telegram-app-lib.php'))) {
+  console.error('beget-deploy/telegram-app-lib.php was not created.')
+  process.exit(1)
+}
+
 console.log(`Beget deploy package ready: ${deployDir}`)
