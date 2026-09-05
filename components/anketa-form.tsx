@@ -15,9 +15,18 @@ const teacherOptions = [
 ] as const
 
 type TeacherValue = (typeof teacherOptions)[number]['value']
+type AgeValue = '18+' | 'under18'
+
+const ageOptions = [
+  { value: '18+' as const, label: '18+' },
+  { value: 'under18' as const, label: 'нет 18 лет' },
+]
 
 const inputClass =
   'w-full border-0 border-b border-white/35 bg-transparent pb-2 font-sans text-[14px] text-white outline-none placeholder:text-white/55 focus:border-white/80 sm:text-[15px]'
+
+const checkboxClass =
+  'mt-0.5 size-4 shrink-0 accent-[#F7F1E5]'
 
 function ConsentCheckboxes({
   offer,
@@ -42,7 +51,7 @@ function ConsentCheckboxes({
           required
           checked={offer}
           onChange={(e) => onOfferChange(e.target.checked)}
-          className="mt-0.5 size-4 shrink-0 accent-[var(--cream,#F7F1E5)]"
+          className={checkboxClass}
         />
         <span>
           Я даю согласие с условиями{' '}
@@ -64,7 +73,7 @@ function ConsentCheckboxes({
           required
           checked={privacy}
           onChange={(e) => onPrivacyChange(e.target.checked)}
-          className="mt-0.5 size-4 shrink-0"
+          className={checkboxClass}
         />
         <span>
           Я даю{' '}
@@ -93,7 +102,7 @@ function ConsentCheckboxes({
           type="checkbox"
           checked={promo}
           onChange={(e) => onPromoChange(e.target.checked)}
-          className="mt-0.5 size-4 shrink-0"
+          className={checkboxClass}
         />
         <span>
           Я даю{' '}
@@ -143,6 +152,7 @@ export function AnketaForm({ variant = 'milana' }: { variant?: 'milana' | 'teach
   const [email, setEmail] = useState('')
   const [telegram, setTelegram] = useState('')
   const [teacher, setTeacher] = useState<TeacherValue | ''>('')
+  const [age, setAge] = useState<AgeValue | ''>('')
   const [offer, setOffer] = useState(false)
   const [privacy, setPrivacy] = useState(false)
   const [promo, setPromo] = useState(false)
@@ -153,7 +163,7 @@ export function AnketaForm({ variant = 'milana' }: { variant?: 'milana' | 'teach
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    if (!offer || !privacy || submitting) return
+    if (!offer || !privacy || !age || submitting) return
 
     setSubmitting(true)
     setError('')
@@ -169,6 +179,7 @@ export function AnketaForm({ variant = 'milana' }: { variant?: 'milana' | 'teach
           email: isTeacherForm ? email : undefined,
           teacher: isTeacherForm ? teacher : undefined,
           telegram,
+          age,
           promo,
         }),
       })
@@ -287,7 +298,7 @@ export function AnketaForm({ variant = 'milana' }: { variant?: 'milana' | 'teach
                     value={option.value}
                     checked={teacher === option.value}
                     onChange={() => setTeacher(option.value)}
-                    className="size-4 shrink-0 accent-[var(--cream,#F7F1E5)]"
+                    className="size-4 shrink-0 accent-[#F7F1E5]"
                   />
                   <span>
                     {option.label}
@@ -300,6 +311,31 @@ export function AnketaForm({ variant = 'milana' }: { variant?: 'milana' | 'teach
             </div>
           </fieldset>
         ) : null}
+
+        <fieldset className="pt-1">
+          <legend className="mb-3 font-sans text-[12px] uppercase tracking-[0.08em] text-white/65 sm:text-[13px]">
+            Возраст
+          </legend>
+          <div className="flex flex-col gap-2.5">
+            {ageOptions.map((option) => (
+              <label
+                key={option.value}
+                className="flex cursor-pointer items-center gap-3 font-sans text-[13px] text-white/85 sm:text-[14px]"
+              >
+                <input
+                  type="radio"
+                  name="age"
+                  required
+                  value={option.value}
+                  checked={age === option.value}
+                  onChange={() => setAge(option.value)}
+                  className="size-4 shrink-0 accent-[#F7F1E5]"
+                />
+                <span>{option.label}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
       </div>
 
       <div className="mt-8 sm:mt-10">

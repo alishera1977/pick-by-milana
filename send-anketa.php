@@ -34,6 +34,7 @@ if (!is_array($data)) {
 $variant = ((isset($data['variant']) ? $data['variant'] : '') === 'teacher') ? 'teacher' : 'milana';
 $telegramRaw = trim(isset($data['telegram']) ? (string) $data['telegram'] : '');
 $promo = !empty($data['promo']);
+$ageRaw = trim(isset($data['age']) ? (string) $data['age'] : '');
 
 $name = trim(isset($data['name']) ? (string) $data['name'] : '');
 $phone = trim(isset($data['phone']) ? (string) $data['phone'] : '');
@@ -46,6 +47,11 @@ $teacherLabels = array(
     'fedya' => 'Федя',
     'masha-expert' => 'Mary',
     'help' => 'Ещё не знаю, нужна помощь',
+);
+
+$ageLabels = array(
+    '18+' => '18+',
+    'under18' => 'нет 18 лет',
 );
 
 if ($variant === 'teacher') {
@@ -71,6 +77,14 @@ if ($variant === 'teacher') {
     }
 }
 
+if (!isset($ageLabels[$ageRaw])) {
+    http_response_code(400);
+    echo json_encode(array('success' => false, 'error' => 'Укажите возраст.'), JSON_UNESCAPED_UNICODE);
+    exit;
+}
+
+$ageLabel = $ageLabels[$ageRaw];
+
 $name = pick_sanitize_field($name, 120);
 $phone = pick_sanitize_field($phone, 80);
 $email = pick_sanitize_field($email, 180);
@@ -93,6 +107,8 @@ if ($variant === 'teacher') {
 } else {
     $lines[] = 'Тип: написать Милане';
 }
+
+$lines[] = 'Возраст: ' . $ageLabel;
 
 if ($hasValidUsername) {
     $lines[] = 'Telegram: @' . $username;
