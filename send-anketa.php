@@ -42,7 +42,7 @@ $email = trim(isset($data['email']) ? (string) $data['email'] : '');
 $teacher = trim(isset($data['teacher']) ? (string) $data['teacher'] : '');
 
 $teacherLabels = array(
-    'masha-start' => 'Маша (START)',
+    'masha-start' => 'Маша',
     'gleb' => 'Глеб',
     'fedya' => 'Федя',
     'masha-expert' => 'Mary',
@@ -54,22 +54,23 @@ $ageLabels = array(
     'under18' => 'нет 18 лет',
 );
 
+if ($name === '') {
+    http_response_code(400);
+    echo json_encode(array('success' => false, 'error' => 'Укажите имя.'), JSON_UNESCAPED_UNICODE);
+    exit;
+}
+if ($phone === '') {
+    http_response_code(400);
+    echo json_encode(array('success' => false, 'error' => 'Укажите телефон.'), JSON_UNESCAPED_UNICODE);
+    exit;
+}
+if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    http_response_code(400);
+    echo json_encode(array('success' => false, 'error' => 'Укажите корректный email.'), JSON_UNESCAPED_UNICODE);
+    exit;
+}
+
 if ($variant === 'teacher') {
-    if ($name === '') {
-        http_response_code(400);
-        echo json_encode(array('success' => false, 'error' => 'Укажите имя.'), JSON_UNESCAPED_UNICODE);
-        exit;
-    }
-    if ($phone === '') {
-        http_response_code(400);
-        echo json_encode(array('success' => false, 'error' => 'Укажите телефон.'), JSON_UNESCAPED_UNICODE);
-        exit;
-    }
-    if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        http_response_code(400);
-        echo json_encode(array('success' => false, 'error' => 'Укажите корректный email.'), JSON_UNESCAPED_UNICODE);
-        exit;
-    }
     if ($teacher === '') {
         http_response_code(400);
         echo json_encode(array('success' => false, 'error' => 'Выберите преподавателя.'), JSON_UNESCAPED_UNICODE);
@@ -106,6 +107,9 @@ if ($variant === 'teacher') {
     $lines[] = 'Преподаватель: ' . $teacherLabel;
 } else {
     $lines[] = 'Тип: написать Милане';
+    $lines[] = 'Имя: ' . $name;
+    $lines[] = 'Телефон: ' . $phone;
+    $lines[] = 'Email: ' . $email;
 }
 
 $lines[] = 'Возраст: ' . $ageLabel;

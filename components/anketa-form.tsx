@@ -174,9 +174,9 @@ export function AnketaForm({ variant = 'milana' }: { variant?: 'milana' | 'teach
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           variant,
-          name: isTeacherForm ? name : undefined,
-          phone: isTeacherForm ? phone : undefined,
-          email: isTeacherForm ? email : undefined,
+          name,
+          phone,
+          email,
           teacher: isTeacherForm ? teacher : undefined,
           telegram,
           age,
@@ -224,50 +224,46 @@ export function AnketaForm({ variant = 'milana' }: { variant?: 'milana' | 'teach
           : 'Отправь свой ник в Telegram — Милана свяжется с тобой.'}
       </p>
 
-      <div className={`flex flex-col gap-5 ${isTeacherForm ? 'mt-8 sm:mt-10' : 'mt-8 sm:mt-10'}`}>
-        {isTeacherForm ? (
-          <>
-            <label className="block">
-              <span className="sr-only">Ваше имя</span>
-              <input
-                required
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Ваше имя"
-                className={inputClass}
-              />
-            </label>
+      <div className="mt-8 flex flex-col gap-5 sm:mt-10">
+        <label className="block">
+          <span className="sr-only">Ваше имя</span>
+          <input
+            required
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Ваше имя"
+            className={inputClass}
+          />
+        </label>
 
-            <label className="block">
-              <span className="sr-only">Телефон</span>
-              <div className="flex items-center gap-2 border-b border-white/35 pb-2 focus-within:border-white/80">
-                <span className="shrink-0 font-sans text-[14px] text-white/80 sm:text-[15px]">
-                  🇷🇺 +7
-                </span>
-                <input
-                  required
-                  type="tel"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  placeholder="(000) 000-00-00"
-                  className="min-w-0 flex-1 border-0 bg-transparent font-sans text-[14px] text-white outline-none placeholder:text-white/55 sm:text-[15px]"
-                />
-              </div>
-            </label>
+        <label className="block">
+          <span className="sr-only">Телефон</span>
+          <div className="flex items-center gap-2 border-b border-white/35 pb-2 focus-within:border-white/80">
+            <span className="shrink-0 font-sans text-[14px] text-white/80 sm:text-[15px]">
+              🇷🇺 +7
+            </span>
+            <input
+              required
+              type="tel"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              placeholder="(000) 000-00-00"
+              className="min-w-0 flex-1 border-0 bg-transparent font-sans text-[14px] text-white outline-none placeholder:text-white/55 sm:text-[15px]"
+            />
+          </div>
+        </label>
 
-            <label className="block">
-              <span className="sr-only">Email</span>
-              <input
-                required
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="example@mail.com"
-                className={inputClass}
-              />
-            </label>
-          </>
-        ) : null}
+        <label className="block">
+          <span className="sr-only">Email</span>
+          <input
+            required
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="example@mail.com"
+            className={inputClass}
+          />
+        </label>
 
         <label className="block">
           <span className="sr-only">Ник в Telegram</span>
@@ -300,12 +296,7 @@ export function AnketaForm({ variant = 'milana' }: { variant?: 'milana' | 'teach
                     onChange={() => setTeacher(option.value)}
                     className="size-4 shrink-0 accent-[#F7F1E5]"
                   />
-                  <span>
-                    {option.label}
-                    {option.value === 'masha-start' ? (
-                      <span className="ml-1 text-white/55">· START</span>
-                    ) : null}
-                  </span>
+                  <span>{option.label}</span>
                 </label>
               ))}
             </div>
