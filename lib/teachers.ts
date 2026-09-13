@@ -26,7 +26,7 @@ export const teachers: readonly Teacher[] = [
     tag: 'PICK / START',
     name: 'Маша',
     tagline: 'разговорная практика, путешествия и повышения уровня',
-    price: '1800 ₽',
+    price: '2200 ₽',
     points: [
       'C1',
       'спокойный и мягкий подход',
@@ -52,7 +52,7 @@ export const teachers: readonly Teacher[] = [
     tag: 'PICK / START',
     name: 'Глеб',
     tagline: 'для тех, кто боится говорить',
-    price: '1800 ₽',
+    price: '2200 ₽',
     points: [
       'C1',
       'easy-going и поддерживающий',
