@@ -45,6 +45,7 @@ $teacherLabels = array(
     'masha-start' => 'Маша',
     'gleb' => 'Глеб',
     'vlada' => 'Влада',
+    'lera' => 'Лера',
     'fedya' => 'Федя',
     'masha-expert' => 'Mary',
     'help' => 'Ещё не знаю, нужна помощь',

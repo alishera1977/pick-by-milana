@@ -49,6 +49,7 @@ Do not commit this file.
 | `gleb` | `gleb` |
 | `vlada` | `vlada` |
 | `fedya` | `fedor` |
+| `lera` | `lera` |
 | `masha-expert` | `mary` |
 | anketa without teacher (`variant=milana`) | `milana` |
 | `help` | `selection` |
