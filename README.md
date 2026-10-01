@@ -47,6 +47,7 @@ Do not commit this file.
 |---|---|
 | `masha-start` | `masha` |
 | `gleb` | `gleb` |
+| `vlada` | `vlada` |
 | `fedya` | `fedor` |
 | `masha-expert` | `mary` |
 | anketa without teacher (`variant=milana`) | `milana` |

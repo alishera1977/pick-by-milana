@@ -44,6 +44,7 @@ $teacher = trim(isset($data['teacher']) ? (string) $data['teacher'] : '');
 $teacherLabels = array(
     'masha-start' => 'Маша',
     'gleb' => 'Глеб',
+    'vlada' => 'Влада',
     'fedya' => 'Федя',
     'masha-expert' => 'Mary',
     'help' => 'Ещё не знаю, нужна помощь',

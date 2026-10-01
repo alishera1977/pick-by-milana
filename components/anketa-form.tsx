@@ -7,10 +7,11 @@ const olive = '#58683F'
 const cream = '#F7F1E5'
 
 const teacherOptions = [
+  { value: 'vlada', label: 'Влада' },
+  { value: 'masha-expert', label: 'Mary' },
+  { value: 'fedya', label: 'Федя' },
   { value: 'masha-start', label: 'Маша' },
   { value: 'gleb', label: 'Глеб' },
-  { value: 'fedya', label: 'Федя' },
-  { value: 'masha-expert', label: 'Mary' },
   { value: 'help', label: 'Ещё не знаю, нужна помощь' },
 ] as const
 
