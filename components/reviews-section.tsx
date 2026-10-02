@@ -26,6 +26,20 @@ type Review = TextReview | PhotoReview
 
 const reviews: Review[] = [
   {
+    id: 'photo-gleb',
+    type: 'photo',
+    image: '/figma/review-gleb-student.jpg',
+    alt: 'Отзыв ученицы о Глебе в Telegram',
+    caption: 'отзыв ученицы о Глебе',
+  },
+  {
+    id: 'photo-fedya',
+    type: 'photo',
+    image: '/figma/review-fedya-student.jpg',
+    alt: 'Отзыв ученика о Феде в Telegram',
+    caption: 'отзыв ученика о Феде',
+  },
+  {
     id: 'photo-masha',
     type: 'photo',
     image: '/figma/review-masha-student.png',
