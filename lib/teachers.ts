@@ -13,6 +13,8 @@ export type Teacher = {
   bio: readonly string[]
   recommendation: string
   price?: string
+  /** Temporarily hide from site listings/anketa. Set to false (or remove) to show again. */
+  hidden?: boolean
 }
 
 export const teachers: readonly Teacher[] = [
@@ -151,6 +153,8 @@ export const teachers: readonly Teacher[] = [
   {
     slug: 'gleb',
     num: '06',
+    // No free slots — hide for now. Set hidden: false to show again.
+    hidden: true,
     photo: '/figma/teacher-gleb.png',
     photoClass: 'object-[center_20%]',
     detailPhoto: '/figma/teacher-gleb.png',
@@ -176,10 +180,18 @@ export const teachers: readonly Teacher[] = [
   },
 ] as const
 
+export function getVisibleTeachers(): Teacher[] {
+  return teachers.filter((teacher) => !teacher.hidden)
+}
+
 export function getTeacherBySlug(slug: string): Teacher | undefined {
-  return teachers.find((teacher) => teacher.slug === slug)
+  const teacher = teachers.find((item) => item.slug === slug)
+  if (!teacher || teacher.hidden) {
+    return undefined
+  }
+  return teacher
 }
 
 export function getAllTeacherSlugs(): string[] {
-  return teachers.map((teacher) => teacher.slug)
+  return getVisibleTeachers().map((teacher) => teacher.slug)
 }

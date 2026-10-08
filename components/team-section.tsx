@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { teachers, type Teacher } from '@/lib/teachers'
+import { getVisibleTeachers, type Teacher } from '@/lib/teachers'
 
 function TeacherCard({
   slug,
@@ -108,7 +108,7 @@ export function TeamSection() {
 
         {/* Teachers grid — mobile: 2 cols so 2 cards per row */}
         <div className="mt-10 grid grid-cols-2 gap-2 sm:mt-12 sm:grid-cols-2 sm:gap-3.5 lg:mt-14 lg:grid-cols-4 lg:gap-4">
-          {teachers.map((teacher) => (
+          {getVisibleTeachers().map((teacher) => (
             <TeacherCard key={teacher.slug} {...teacher} />
           ))}
         </div>

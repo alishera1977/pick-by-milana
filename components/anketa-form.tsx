@@ -2,21 +2,20 @@
 
 import Link from 'next/link'
 import { FormEvent, useState } from 'react'
+import { getVisibleTeachers } from '@/lib/teachers'
 
 const olive = '#58683F'
 const cream = '#F7F1E5'
 
 const teacherOptions = [
-  { value: 'vlada', label: 'Влада' },
-  { value: 'masha-expert', label: 'Mary' },
-  { value: 'fedya', label: 'Федя' },
-  { value: 'lera', label: 'Лера' },
-  { value: 'masha-start', label: 'Маша' },
-  { value: 'gleb', label: 'Глеб' },
+  ...getVisibleTeachers().map((teacher) => ({
+    value: teacher.slug,
+    label: teacher.name,
+  })),
   { value: 'help', label: 'Ещё не знаю, нужна помощь' },
-] as const
+]
 
-type TeacherValue = (typeof teacherOptions)[number]['value']
+type TeacherValue = string
 type AgeValue = '18+' | 'under18'
 
 const ageOptions = [
