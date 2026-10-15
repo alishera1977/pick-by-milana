@@ -33,6 +33,7 @@ if (!is_array($data)) {
 
 $variant = ((isset($data['variant']) ? $data['variant'] : '') === 'teacher') ? 'teacher' : 'milana';
 $telegramRaw = trim(isset($data['telegram']) ? (string) $data['telegram'] : '');
+$contactAltRaw = trim(isset($data['contact_alt']) ? (string) $data['contact_alt'] : '');
 $promo = !empty($data['promo']);
 $ageRaw = trim(isset($data['age']) ? (string) $data['age'] : '');
 
@@ -91,6 +92,7 @@ $ageLabel = $ageLabels[$ageRaw];
 $name = pick_sanitize_field($name, 120);
 $phone = pick_sanitize_field($phone, 80);
 $email = pick_sanitize_field($email, 180);
+$contactAlt = pick_sanitize_field($contactAltRaw, 200);
 $teacherLabel = isset($teacherLabels[$teacher])
     ? $teacherLabels[$teacher]
     : pick_sanitize_field($teacher, 120);
@@ -122,8 +124,11 @@ if ($hasValidUsername) {
     $lines[] = 'Telegram: Telegram для быстрой связи не указан';
 }
 
-$lines[] = 'Рассылка: ' . ($promo ? 'да' : 'нет');
+if ($contactAlt !== '') {
+    $lines[] = 'Другой способ связи: ' . $contactAlt;
+}
 
+$lines[] = 'Рассылка: ' . ($promo ? 'да' : 'нет');
 $message = implode("\n", $lines);
 
 $replyMarkup = null;

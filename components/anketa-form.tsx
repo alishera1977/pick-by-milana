@@ -152,6 +152,7 @@ export function AnketaForm({ variant = 'milana' }: { variant?: 'milana' | 'teach
   const [phone, setPhone] = useState('')
   const [email, setEmail] = useState('')
   const [telegram, setTelegram] = useState('')
+  const [contactAlt, setContactAlt] = useState('')
   const [teacher, setTeacher] = useState<TeacherValue | ''>('')
   const [age, setAge] = useState<AgeValue | ''>('')
   const [offer, setOffer] = useState(false)
@@ -180,6 +181,7 @@ export function AnketaForm({ variant = 'milana' }: { variant?: 'milana' | 'teach
           email,
           teacher: isTeacherForm ? teacher : undefined,
           telegram,
+          contact_alt: contactAlt.trim() || undefined,
           age,
           promo,
         }),
@@ -266,16 +268,32 @@ export function AnketaForm({ variant = 'milana' }: { variant?: 'milana' | 'teach
           />
         </label>
 
-        <label className="block">
-          <span className="sr-only">Ник в Telegram</span>
-          <input
-            required
-            value={telegram}
-            onChange={(e) => setTelegram(e.target.value)}
-            placeholder="Ник в Telegram, например @user1"
-            className={inputClass}
-          />
-        </label>
+        <div className="flex flex-col gap-2.5">
+          <label className="block">
+            <span className="sr-only">Ник в Telegram</span>
+            <input
+              required
+              value={telegram}
+              onChange={(e) => setTelegram(e.target.value)}
+              placeholder="Ник в Telegram, например @user1"
+              className={inputClass}
+            />
+          </label>
+          <p className="font-sans text-[12px] leading-[1.45] text-white/65 sm:text-[13px]">
+            Пожалуйста, убедитесь, что вам можно написать в Telegram без Premium
+            и оплаты звёздами, или укажите другой способ связи — чтобы мы могли
+            ответить на вашу заявку 🤍
+          </p>
+          <label className="block">
+            <span className="sr-only">Другой способ связи</span>
+            <input
+              value={contactAlt}
+              onChange={(e) => setContactAlt(e.target.value)}
+              placeholder="Другой способ связи, если нужно"
+              className={inputClass}
+            />
+          </label>
+        </div>
 
         {isTeacherForm ? (
           <fieldset className="pt-1">
